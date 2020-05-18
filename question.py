@@ -1,0 +1,346 @@
+from quiz import Quiz 
+from answer import Answer
+from imdb import IMDb
+from random import randrange
+import random
+
+class Question:
+    def __init__(self):
+        self.ques = ""
+        self.answerOne = ""
+        self.answerTwo = ""
+        self.answerThree = ""
+        self.answerFour = ""
+    
+    def topMoviesYear(self):
+        moviesDB = IMDb()
+        top = moviesDB.get_top250_movies()
+        movieID = randrange(0,250)
+        chance = 0
+        self.ques = '{0} filmi hangi sene vizyona girmiştir?'.format(top[movieID]['title'])
+        self.answerOne = top[movieID]['year']
+
+        if self.answerOne==2018:
+            chance = randrange(3)        
+        elif self.answerOne==2019:
+            chance = randrange(2)
+        elif self.answerOne==2020:
+            chance = randrange(1)
+        else:
+            chance = randrange(4)
+
+        
+        if chance == 0:
+            self.answerTwo = top[movieID]['year']-3
+            self.answerThree = top[movieID]['year']-2
+            self.answerFour = top[movieID]['year']-1
+        elif chance == 1:
+            self.answerTwo = top[movieID]['year']+1
+            self.answerThree = top[movieID]['year']-2
+            self.answerFour = top[movieID]['year']-1
+        elif chance == 2:
+            self.answerTwo = top[movieID]['year']+1
+            self.answerThree = top[movieID]['year']+2
+            self.answerFour = top[movieID]['year']-1
+        elif chance == 3:    
+            self.answerTwo = top[movieID]['year']+1
+            self.answerThree = top[movieID]['year']+2
+            self.answerFour = top[movieID]['year']+3
+    
+    def topMoviesDirectors(self):
+        moviesDB = IMDb()
+        top = moviesDB.get_top250_movies()
+        movieID = randrange(0,250)
+        movie = top[movieID]
+        moviesDB.update(movie,info=['main'])
+        self.ques = '{1} yapımı olan {0} filminin yönetmeni kimdir?'.format(movie['title'],movie['year'])
+        self.answerOne = movie['directors'][0]['name'] 
+        flag=True
+        while flag:
+            filmID = randrange(0,250)
+            moviesDB.update(top[filmID],info=['main'])
+            for genre in movie['genres']:
+                for gen in top[filmID]['genres']:
+                    if gen == genre:                        
+                        film = top[filmID]
+                        if film['directors'][0]['name'] != self.answerOne:
+                            self.answerTwo = film['directors'][0]['name']                                               
+                            flag = False
+        flag=True
+        while flag:
+            filmID = randrange(0,250)
+            moviesDB.update(top[filmID],info=['main'])
+            for genre in movie['genres']:
+                for gen in top[filmID]['genres']:
+                    if gen == genre:                        
+                        film = top[filmID]
+                        if film['directors'][0]['name'] != self.answerOne and film['directors'][0]['name'] != self.answerTwo:
+                            self.answerThree = film['directors'][0]['name']
+                            flag = False
+        flag=True
+        while flag:
+            filmID = randrange(0,250)
+            moviesDB.update(top[filmID],info=['main'])
+            for genre in movie['genres']:
+                for gen in top[filmID]['genres']:
+                    if gen == genre:                        
+                        film = top[filmID]
+                        if film['directors'][0]['name'] != self.answerOne and film['directors'][0]['name'] != self.answerTwo and film['directors'][0]['name'] != self.answerThree:
+                            self.answerFour = film['directors'][0]['name']
+                            flag = False
+
+    def topMoviesCast(self):
+        moviesDB = IMDb()
+        top = moviesDB.get_top250_movies()
+        movieID = randrange(0,250)
+        movie = top[movieID]
+        moviesDB.update(movie,info=['main'])
+        self.ques = 'Aşağıdakilerden hangisi {1} yapımı olan {0} filminin oyuncularından değildir?'.format(movie['title'],movie['year'])
+        if len(movie['cast'])<5:
+            self.answerTwo = movie['cast'][0]['name']
+            self.answerThree = movie['cast'][1]['name']
+            self.answerFour = movie['cast'][2]['name']
+        else:
+            rand = random.sample(range(0,5),3)
+            index = rand[0]
+            self.answerTwo = movie['cast'][index]['name']
+            index = rand[1]
+            self.answerThree = movie['cast'][index]['name']
+            index = rand[2]
+            self.answerFour = movie['cast'][index]['name']
+        moviesDB.update(movie['cast'][0])
+        roleNum = len(movie['cast'])
+        movieNum = len(movie['cast'][0]['filmography'][0]['actor'])
+        rand = random.sample(range(0,movieNum),movieNum)
+        i = 0        
+        flag=True        
+        while flag and i < movieNum:
+            coun = rand[i]
+            i+=1            
+            new_id = movie['cast'][0]['filmography'][0]['actor'][coun].movieID
+            newMovie = moviesDB.get_movie(new_id)
+            moviesDB.update(newMovie,info=['main'])
+            roleCoun = len(newMovie['cast'])  
+            if movie['year']+5>=newMovie['year'] and movie['year']-5<=newMovie['year'] and movie['title']!=newMovie['title']:                
+                for c in range(roleCoun): 
+                    control_c = 0
+                    for j in range(roleNum):
+                        if newMovie['cast'][c]['name'] == movie['cast'][j]['name']:
+                            control_c +=1 
+                    if control_c == 0:
+                        self.answerOne = newMovie['cast'][c]['name']
+                        flag = False
+                        break  
+        i=0
+        while flag and i < movieNum:
+            coun = rand[i]
+            i+=1            
+            new_id = movie['cast'][0]['filmography'][0]['actor'][coun].movieID
+            newMovie = moviesDB.get_movie(new_id)
+            moviesDB.update(newMovie,info=['main'])
+            roleCoun = len(newMovie['cast'])  
+            if movie['title']!=newMovie['title']:                
+                for c in range(roleCoun): 
+                    control_c = 0
+                    for j in range(roleNum):
+                        if newMovie['cast'][c]['name'] == movie['cast'][j]['name']:
+                            control_c +=1 
+                    if control_c == 0:
+                        self.answerOne = newMovie['cast'][c]['name']
+                        flag = False
+                        break  
+    
+    def topMoviesRole(self):
+        moviesDB = IMDb()
+        top = moviesDB.get_top250_movies()
+        movieID = randrange(0,250)
+        movie = top[movieID]
+        moviesDB.update(movie,info=['main'])
+
+        rand = random.sample(range(0,5),4)
+        one = rand[0]
+        actor = movie['cast'][one]
+        self.answerOne = actor.currentRole
+        self.ques = 'Aşağıdakilerden hangisi {1} yapımı olan {0} filminde {2} adlı oyuncunun canlandırdığı karakterdir?'.format(movie['title'],movie['year'],movie['cast'][one])
+        
+        two = rand[1]
+        actor = movie['cast'][two]
+        self.answerTwo = actor.currentRole
+
+        three = rand[2]
+        actor = movie['cast'][three]
+        self.answerThree = actor.currentRole
+
+        four = rand[3]
+        actor = movie['cast'][four]
+        self.answerFour = actor.currentRole
+    
+    def topMoviesActor(self):
+        moviesDB = IMDb()
+        top = moviesDB.get_top250_movies()
+        movieID = randrange(0,250)
+        movie = top[movieID]
+        moviesDB.update(movie,info=['main'])
+
+        rand = random.sample(range(0,5),4)
+        one = rand[0]
+        actor = movie['cast'][one]
+        self.answerOne = actor
+        role = actor.currentRole
+        self.ques = 'Aşağıdakilerden hangisi {1} yapımı olan {0} filminde {2} adlı karakteri canlandıran oyuncudur?'.format(movie['title'],movie['year'],role)
+        
+        two = rand[1]
+        actor = movie['cast'][two]
+        self.answerTwo = actor
+
+        three = rand[2]
+        actor = movie['cast'][three]
+        self.answerThree = actor
+
+        four = rand[3]
+        actor = movie['cast'][four]
+        self.answerFour = actor
+
+    def topMoviesActorMovie(self):
+        moviesDB = IMDb()
+        top = moviesDB.get_top250_movies()
+        movieID = randrange(0,250)
+        movie = top[movieID]
+        moviesDB.update(movie,info=['main'])
+        rand = random.sample(range(0,5),2)
+
+        index = rand[0] #actor
+        actor = movie['cast'][index]
+        self.ques = '{0} isimli oyuncu aşağıdaki filmlerden hangisinde rol almamıştır?'.format(actor)
+
+       
+        moviesDB.update(movie['cast'][index])  
+        num = len(movie['cast'][index]['filmography'][0]['actor'])      #####KeyError: 'actor'   
+        rand_index = random.sample(range(0,num),2) #movies of actor
+        self.answerTwo = movie['title']
+        movie_index = rand_index[0]
+        new_id = movie['cast'][index]['filmography'][0]['actor'][movie_index].movieID
+        newMovie = moviesDB.get_movie(new_id)
+        self.answerThree = newMovie['title']
+        movie_index = rand_index[1]
+        new_id = movie['cast'][index]['filmography'][0]['actor'][movie_index].movieID
+        newMovie = moviesDB.get_movie(new_id)
+        self.answerFour = newMovie['title']
+
+        index = rand[1] #actor2
+        actor_two = movie['cast'][index]
+        moviesDB.update(movie['cast'][index])
+        movieNum = len(movie['cast'][index]['filmography'][0]['actor'])     #####KeyError: 'actor'   
+        rand = random.sample(range(0,movieNum),movieNum)
+        flag = True
+        i = 0
+        while flag and i < movieNum:
+            coun = rand[i]
+            i+=1            
+            new_id = movie['cast'][index]['filmography'][0]['actor'][coun].movieID
+            newMovie = moviesDB.get_movie(new_id)
+            moviesDB.update(newMovie,info=['main'])
+            roleCoun = len(newMovie['cast'])  
+                            
+            for c in range(roleCoun): 
+                control_c = 0
+                if newMovie['cast'][c]['name'] == actor['name']:
+                    control_c +=1               
+            if control_c == 0:
+                self.answerOne = newMovie['title']
+                flag = False
+                break
+    
+    def topMoviesCastOne(self):
+        moviesDB = IMDb()
+        top = moviesDB.get_top250_movies()
+        movieID = randrange(0,250)
+        movie = top[movieID]
+        moviesDB.update(movie,info=['main'])
+        self.ques = 'Aşağıdakilerden hangisi {1} yapımı olan {0} filminde oynamıştır?'.format(movie['title'],movie['year'])
+        
+        
+        rand = random.sample(range(0,3),1)
+        index = rand[0]
+        self.answerOne = movie['cast'][index]['name']   
+
+
+        moviesDB.update(movie['cast'][0])
+        roleNum = len(movie['cast'])
+        moviesDB.update(movie)
+        movieNum = len(movie['cast'][0]['filmography'][0]['actor'])
+        rand = random.sample(range(0,movieNum),movieNum)
+        i = 0      
+        flag=True        
+        while flag and i < movieNum:
+            coun = rand[i]
+            i+=1            
+            new_id = movie['cast'][0]['filmography'][0]['actor'][coun].movieID
+            newMovie = moviesDB.get_movie(new_id)
+            moviesDB.update(newMovie,info=['main'])
+            roleCoun = len(newMovie['cast'])  
+            if movie['title']!=newMovie['title']:                
+                for c in range(roleCoun): 
+                    control_c = 0
+                    for j in range(roleNum):
+                        if newMovie['cast'][c]['name'] == movie['cast'][j]['name']:
+                            control_c +=1 
+                    if control_c == 0:
+                        self.answerTwo = newMovie['cast'][c]['name']
+                        flag = False
+                        break
+
+        flag=True        
+        while flag and i < movieNum:
+            coun = rand[i]
+            i+=1            
+            new_id = movie['cast'][0]['filmography'][0]['actor'][coun].movieID
+            newMovie = moviesDB.get_movie(new_id)
+            moviesDB.update(newMovie,info=['main'])
+            roleCoun = len(newMovie['cast'])  
+            if movie['title']!=newMovie['title']:                
+                for c in range(roleCoun): 
+                    control_c = 0
+                    for j in range(roleNum):
+                        if newMovie['cast'][c]['name'] == movie['cast'][j]['name']:
+                            control_c +=1 
+                    if control_c == 0:
+                        self.answerThree = newMovie['cast'][c]['name']
+                        flag = False
+                        break
+
+        flag=True        
+        while flag and i < movieNum:
+            coun = rand[i]
+            i+=1            
+            new_id = movie['cast'][0]['filmography'][0]['actor'][coun].movieID
+            newMovie = moviesDB.get_movie(new_id)
+            moviesDB.update(newMovie,info=['main'])
+            roleCoun = len(newMovie['cast'])  
+            if movie['title']!=newMovie['title']:                
+                for c in range(roleCoun): 
+                    control_c = 0
+                    for j in range(roleNum):
+                        if newMovie['cast'][c]['name'] == movie['cast'][j]['name']:
+                            control_c +=1 
+                    if control_c == 0:
+                        self.answerFour = newMovie['cast'][c]['name']
+                        flag = False
+                        break
+
+
+
+    def get_question(self):
+        return self.ques
+    
+    def get_answer_one(self):
+        return self.answerOne
+    
+    def get_answer_two(self):
+        return self.answerTwo
+    
+    def get_answer_three(self):
+        return self.answerThree
+    
+    def get_answer_four(self):
+        return self.answerFour

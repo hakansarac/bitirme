@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block title %}Home Page{% endblock %}
+{% block content %}
+    <h1>Film Quiz</h1>
+    <body style="text-align: center;">      
+        <br />
+        <br />
+        Press button to
+        <a href="{{ url_for('questions_page') }}"><strong style="text-align: center;">Play!</p></a>
+      
+    </body>
+    
+{% endblock %}

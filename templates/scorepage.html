@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block title %}Score Page{% endblock %}
+{% block content %}
+    <h1>Film Quiz</h1>
+    <body style="text-align: center;">      
+        <br />
+        <br />
+        <p>Your Final Score: {{score_data.score }}</p>
+        <br />
+        <br />
+        Press button to
+        <a href="{{ url_for('home_page') }}"><strong style="text-align: center;">Play Again!</p></a>      
+    </body>    
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% block title %}Question - dynamic{% endblock %}
+{% block content %}
+    <h1 class="title">Question</h1>
+    <p>{{ question }}
+    <br />
+    </p>
+    <form action="" method="post" name="answer_list">
+      <table class="table is-striped is-fullwidth" align="center">           
+        {% for answer_key, answer in answers %}
+        <tr>
+          <td style="text-align: center;">
+            <label class="radio">
+              <input type="radio" name="answer_keys" value="{{ answer_key }}"/>            
+            </label>
+            {{ answer.selection }}
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+      <br />
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-primary is-small">Select</button>
+        </div>
+      </div> 
+    </form> 
+    <br />
+    <p>Score: {{score_data.score }}</p>
+    <p>Level: {{score_data.level }}</p>
+    <br />
+    {% if score_data.hearth==3 %}
+    <p>&#10084;&#65039; &#10084;&#65039; &#10084;&#65039;</p>
+    {% endif %}
+    {% if score_data.hearth==2 %}
+    <p>&#10084;&#65039; &#10084;&#65039;</p>
+    {% endif %}
+    {% if score_data.hearth==1 %}
+    <p>&#10084;&#65039;</p>
+    {% endif %}
+    <a href="{{ url_for('score_page') }}"><strong>Quit!</strong></a>    
+{% endblock %}
