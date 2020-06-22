@@ -19,7 +19,7 @@ def questions_page():
     question = quiz.get_question()
     if score_data.get_flag():
         random_question = randrange(7)
-        random_question = 2
+        #random_question = 2
         if random_question == 0:
             film_question.topMoviesYear()
         elif random_question == 1:
