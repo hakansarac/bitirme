@@ -5,6 +5,8 @@ from answer import Answer
 from data import Data
 from question import Question
 from filmdata import TopMovies
+from random import randrange
+import random
 
 def home_page():
     score_data = current_app.config["score_data"]
@@ -18,8 +20,18 @@ def questions_page():
     quiz = Quiz()
     question = quiz.get_question()
     if score_data.get_flag():
-        random_question = randrange(7)
-        #random_question = 2
+
+        random_question = -1
+        if score_data.get_level()==1:
+            rand_arr = random.sample(range(0,2),1)
+            random_question = rand_arr[0]
+        elif score_data.get_level()==2:
+            rand_arr = random.sample(range(2,5),1)
+            random_question = rand_arr[0]
+        else:
+            rand_arr = random.sample(range(5,7),1)
+            random_question = rand_arr[0]
+        
         if random_question == 0:
             film_question.topMoviesYear()
         elif random_question == 1:
@@ -171,9 +183,9 @@ def questions_page():
             last_answer = quiz.get_answer(int(gamer_answer_key)) 
         if last_answer.answerisTrue():
             score_data.update_score()
-            if score_data.get_score()%50 == 0 and score_data.get_score() > 0:
+            if score_data.get_score()%30 == 0 and score_data.get_score() > 0:
                 score_data.update_level()
-                if score_data.get_level()%2==1 and score_data.get_level()>1 and score_data.get_hearth()<3:
+                if score_data.get_hearth()<3:
                     score_data.increase_hearth()
         else:
             score_data.decrease_hearth()  
