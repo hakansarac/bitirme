@@ -23,29 +23,49 @@ def questions_page():
 
         random_question = -1
         if score_data.get_level()==1:
-            rand_arr = random.sample(range(0,2),1)
+            rand_arr = random.sample(range(0,3),1)
             random_question = rand_arr[0]
         elif score_data.get_level()==2:
-            rand_arr = random.sample(range(2,5),1)
+            rand_arr = random.sample(range(3,10),1)
             random_question = rand_arr[0]
         else:
-            rand_arr = random.sample(range(5,7),1)
+            rand_arr = random.sample(range(8,15),1)
             random_question = rand_arr[0]
         
         if random_question == 0:
-            film_question.topMoviesYear()
+            film_question.topMoviesYearOne()
         elif random_question == 1:
-            film_question.topMoviesDirectors()
+            film_question.topMoviesDirectorsOne()
         elif random_question == 2:
-            film_question.topMoviesCast()
+            film_question.topMoviesActorOne()
+
         elif random_question == 3:
-            film_question.topMoviesRole()
-        elif random_question == 4:
-            film_question.topMoviesActor()
-        elif random_question == 5:
-            film_question.topMoviesActorMovie() 
+            film_question.topMoviesYearTwo()
+        #elif random_question == 4:
+        #    film_question.topMoviesNotCastTwo()   #add
+        #elif random_question == 5:
+        #    film_question.topMoviesRoleTwo()  #add
         elif random_question == 6:
-            film_question.topMoviesCastOne()
+            film_question.topMoviesActorMovieTwo()
+        #elif random_question == 7:
+        #    film_question.topMoviesCastTwo() #add
+
+        elif random_question == 8:
+            film_question.topMoviesActorTwoThree()
+        elif random_question == 9:
+            film_question.topMoviesDirectorsTwoThree()
+
+        elif random_question == 10:
+            film_question.topMoviesYearThree()
+        elif random_question == 11:
+            film_question.topMoviesNotCastThree()
+        elif random_question == 12:
+            film_question.topMoviesRoleThree()        
+        elif random_question == 13:
+            film_question.topMoviesActorMovieThree()
+        elif random_question == 14:
+            film_question.topMoviesCastThree()
+
         quiz.set_question(film_question.get_question())
         question = quiz.get_question()
         score_data.update_random(randrange(24))
