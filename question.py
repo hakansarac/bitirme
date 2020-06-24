@@ -239,10 +239,10 @@ class Question:
                 for c in range(roleCoun): 
                     control_c = 0
                     for j in range(roleNum):
-                        if newMovie['cast'][c]['name'] == movie['cast'][j]['name']:
+                        if new_movie['cast'][c]['name'] == movie['cast'][j]['name']:
                             control_c +=1 
                     if control_c == 0:
-                        self.answerOne = newMovie['cast'][c]['name']
+                        self.answerOne = new_movie['cast'][c]['name']
                         flag = False
                         break
 
@@ -657,12 +657,83 @@ class Question:
 
 
 ##topMoviesCast    
+    def topMoviesCastTwo(self):
+        moviesDB = IMDb()
+        top = moviesDB.get_top250_movies()
+        movieID = randrange(0,250)
+        movie = top[movieID]
+        moviesDB.update(movie,info=['main'])
+        rand = random.sample(range(0,3),1)
+        index = rand[0]       
+
+        self.ques = 'Aşağıdakilerden hangisi {1} yapımı olan {0} filminde oynamıştır?'.format(movie['title'],movie['year'])        
+        
+        self.answerOne = movie['cast'][index]['name']
+        
+        
+        roleNum = len(movie['cast'])
+        flag = True
+        while flag:
+            new_movieID = randrange(0,250)
+            new_movie = top[new_movieID]
+            moviesDB.update(new_movie,info=['main'])            
+            roleCoun = len(new_movie['cast'])                             
+            if movie['title']!=new_movie['title']:                
+                for c in range(roleCoun): 
+                    control_c = 0
+                    for j in range(roleNum):
+                        if new_movie['cast'][c]['name'] == movie['cast'][j]['name']:
+                            control_c +=1 
+                    if control_c == 0:
+                        self.answerTwo = new_movie['cast'][c]['name']
+                        flag = False
+                        break
+        
+        flag = True
+        while flag:
+            new_movieID = randrange(0,250)
+            new_movie = top[new_movieID]
+            moviesDB.update(new_movie,info=['main'])            
+            roleCoun = len(new_movie['cast'])                             
+            if movie['title']!=new_movie['title']:                
+                for c in range(roleCoun): 
+                    control_c = 0
+                    for j in range(roleNum):
+                        if new_movie['cast'][c]['name'] == movie['cast'][j]['name']:
+                            control_c +=1 
+                    if control_c == 0:
+                        self.answerThree = new_movie['cast'][c]['name']
+                        flag = False
+                        break
+        
+        flag = True
+        while flag:
+            new_movieID = randrange(0,250)
+            new_movie = top[new_movieID]
+            moviesDB.update(new_movie,info=['main'])            
+            roleCoun = len(new_movie['cast'])                             
+            if movie['title']!=new_movie['title']:                
+                for c in range(roleCoun): 
+                    control_c = 0
+                    for j in range(roleNum):
+                        if new_movie['cast'][c]['name'] == movie['cast'][j]['name']:
+                            control_c +=1 
+                    if control_c == 0:
+                        self.answerFour = new_movie['cast'][c]['name']
+                        flag = False
+                        break
+
+
+
+
+
     def topMoviesCastThree(self):
         moviesDB = IMDb()
         top = moviesDB.get_top250_movies()
         isFind = False
         movieNum = 0
         movie = top[0]
+        index = 0
         while not isFind:
             movieID = randrange(0,250)
             movie = top[movieID]
