@@ -227,7 +227,7 @@ class Question:
             self.answerThree = movie['cast'][index]['name']
             index = rand[2]
             self.answerFour = movie['cast'][index]['name']
-        moviesDB.update(movie['cast'][0])
+        #moviesDB.update(movie['cast'][0])
         roleNum = len(movie['cast'])
         flag = True
         while flag:
@@ -341,6 +341,33 @@ class Question:
 
 
 ##topMoviesRole
+    def topMoviesRoleTwo(self):
+        moviesDB = IMDb()
+        top = moviesDB.get_top250_movies()
+        movieID = randrange(0,250)
+        movie = top[movieID]
+        moviesDB.update(movie,info=['main'])
+
+        rand = random.sample(range(0,5),1)
+        one = rand[0]
+        actor = movie['cast'][one]
+        self.answerOne = actor.currentRole
+        self.ques = 'Aşağıdakilerden hangisi {1} yapımı olan {0} filminde {2} adlı oyuncunun canlandırdığı karakterdir?'.format(movie['title'],movie['year'],movie['cast'][one])
+        
+        new_movieID = randrange(0,250)
+        new_movie = top[new_movieID]
+        moviesDB.update(new_movie,info=['main'])
+        if new_movie['title'] != new_movie['title']:
+            actor = new_movie['cast'][0]
+            self.answerTwo = actor.currentRole
+            
+            actor = new_movie['cast'][1]
+            self.answerThree = actor.currentRole
+            
+            actor = new_movie['cast'][2]
+            self.answerFour = actor.currentRole
+
+
     def topMoviesRoleThree(self):
         moviesDB = IMDb()
         top = moviesDB.get_top250_movies()
