@@ -41,8 +41,8 @@ def questions_page():
 
         elif random_question == 3:
             film_question.topMoviesYearTwo()
-        #elif random_question == 4:
-        #    film_question.topMoviesNotCastTwo()   #add
+        elif random_question == 4:
+            film_question.topMoviesNotCastTwo()  
         #elif random_question == 5:
         #    film_question.topMoviesRoleTwo()  #add
         elif random_question == 6:

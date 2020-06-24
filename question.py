@@ -206,6 +206,47 @@ class Question:
 
 
 ##topMoviesNotCast
+    def topMoviesNotCastTwo(self):
+        moviesDB = IMDb()
+        top = moviesDB.get_top250_movies()
+        movieID = randrange(0,250)
+        movie = top[movieID]
+        moviesDB.update(movie,info=['main'])
+        #moviesDB.update(movie['cast'][0])
+        
+        self.ques = 'Aşağıdakilerden hangisi {1} yapımı olan {0} filminin oyuncularından değildir?'.format(movie['title'],movie['year'])
+        if len(movie['cast'])<5:
+            self.answerTwo = movie['cast'][0]['name']
+            self.answerThree = movie['cast'][1]['name']
+            self.answerFour = movie['cast'][2]['name']
+        else:
+            rand = random.sample(range(0,5),3)
+            index = rand[0]
+            self.answerTwo = movie['cast'][index]['name']
+            index = rand[1]
+            self.answerThree = movie['cast'][index]['name']
+            index = rand[2]
+            self.answerFour = movie['cast'][index]['name']
+        moviesDB.update(movie['cast'][0])
+        roleNum = len(movie['cast'])
+        flag = True
+        while flag:
+            new_movieID = randrange(0,250)
+            new_movie = top[new_movieID]
+            moviesDB.update(new_movie,info=['main'])            
+            roleCoun = len(new_movie['cast'])                             
+            if movie['title']!=new_movie['title']:                
+                for c in range(roleCoun): 
+                    control_c = 0
+                    for j in range(roleNum):
+                        if newMovie['cast'][c]['name'] == movie['cast'][j]['name']:
+                            control_c +=1 
+                    if control_c == 0:
+                        self.answerOne = newMovie['cast'][c]['name']
+                        flag = False
+                        break
+
+
     def topMoviesNotCastThree(self):
         moviesDB = IMDb()
         top = moviesDB.get_top250_movies()
