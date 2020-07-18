@@ -14,6 +14,8 @@ class Question:
 
 
 ###topMoviesYear
+###level_1 question (easy) 
+###there are 3 years between selections 
     def topMoviesYearOne(self):
         moviesDB = IMDb()
         top = moviesDB.get_top250_movies()
@@ -49,7 +51,8 @@ class Question:
             self.answerThree = top[movieID]['year']+6
             self.answerFour = top[movieID]['year']+9
 
-
+###level_2 question (medium) 
+###there are 2 years between selections
     def topMoviesYearTwo(self):
         moviesDB = IMDb()
         top = moviesDB.get_top250_movies()
@@ -85,7 +88,8 @@ class Question:
             self.answerThree = top[movieID]['year']+4
             self.answerFour = top[movieID]['year']+6
 
-
+###level_3 question (hard) 
+###there is 1 year between selections
     def topMoviesYearThree(self):
         moviesDB = IMDb()
         top = moviesDB.get_top250_movies()
@@ -130,6 +134,8 @@ class Question:
 
 
 ##topMoviesDirectors
+###level_1 question (easy) 
+###false selections are actors/actresses in same movie
     def topMoviesDirectorsOne(self):
         moviesDB = IMDb()
         top = moviesDB.get_top250_movies()
@@ -155,6 +161,8 @@ class Question:
                     self.answerFour = movie['cast'][c]['name']            
                     break
 
+###level_2_3 question (medium-hard) 
+###false selections are directors who directed movies same genres 
     def topMoviesDirectorsTwoThree(self):
         moviesDB = IMDb()
         top = moviesDB.get_top250_movies()
@@ -204,7 +212,9 @@ class Question:
 
 
 
-
+###level_2 question (medium) 
+###false selections are among top five actors/actresses in movie
+###true selection is first actor/actress from new random movie(harder one in level3)
 ##topMoviesNotCast
     def topMoviesNotCastTwo(self):
         moviesDB = IMDb()
@@ -246,7 +256,9 @@ class Question:
                         flag = False
                         break
 
-
+###level_3 question (hard) 
+###false selections are among top five actors/actresses in same movie
+###true selection is an actor/actress from another movie of leading actor(if there are maximum 5 years between two movies of leading actor choose this year, or search another movie) 
     def topMoviesNotCastThree(self):
         moviesDB = IMDb()
         top = moviesDB.get_top250_movies()
@@ -341,6 +353,8 @@ class Question:
 
 
 ##topMoviesRole
+###level_2 question (medium) 
+###false selections are from another movie
     def topMoviesRoleTwo(self):
         moviesDB = IMDb()
         top = moviesDB.get_top250_movies()
@@ -367,7 +381,9 @@ class Question:
             actor = new_movie['cast'][2]
             self.answerFour = actor.currentRole
 
-
+###level_3 question (hard) 
+###true selection is among top five role 
+###false selections are among top five role from same movie 
     def topMoviesRoleThree(self):
         moviesDB = IMDb()
         top = moviesDB.get_top250_movies()
@@ -406,6 +422,9 @@ class Question:
 
 
 ##topMoviesActor
+###level_1 question (easy) 
+###true selection is among top five actor/actress
+###false selections are from another movie
     def topMoviesActorOne(self):
         moviesDB = IMDb()
         top = moviesDB.get_top250_movies()
@@ -440,7 +459,9 @@ class Question:
                             flag=False
                             break                        
 
-
+###level_2_3 question (medium - hard) 
+###true selection is among top five actor/actress
+###false selections are from same movie
     def topMoviesActorTwoThree(self):
         moviesDB = IMDb()
         top = moviesDB.get_top250_movies()
@@ -476,6 +497,8 @@ class Question:
 
 
 ##topMoviesActorMovie
+###level_2 question (medium) 
+###true selection is chosen randomly
     def topMoviesActorMovieTwo(self):
         moviesDB = IMDb()
         top = moviesDB.get_top250_movies()
@@ -548,7 +571,8 @@ class Question:
                     break  
 
 
-##
+###level_3 question (hard) 
+###true selection is chosen among another movies of other leading actor/actress
     def topMoviesActorMovieThree(self):
         moviesDB = IMDb()
         top = moviesDB.get_top250_movies()
@@ -657,6 +681,9 @@ class Question:
 
 
 ##topMoviesCast    
+##level_2 question (medium)
+##true selection is from top three actor/actress of movie
+##false selections from random other three movies 
     def topMoviesCastTwo(self):
         moviesDB = IMDb()
         top = moviesDB.get_top250_movies()
@@ -725,7 +752,9 @@ class Question:
 
 
 
-
+##level_3 question (hard)
+##true selection is from top three actor/actress of movie
+##false selections are leading actor/actress from other three movies of leading actor/actress of asked movie
 
     def topMoviesCastThree(self):
         moviesDB = IMDb()

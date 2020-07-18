@@ -22,6 +22,7 @@ def questions_page():
     if score_data.get_flag():
 
         random_question = -1
+        ##select question randomly according to level
         if score_data.get_level()==1:
             rand_arr = random.sample(range(0,3),1)
             random_question = rand_arr[0]
@@ -32,6 +33,7 @@ def questions_page():
             rand_arr = random.sample(range(8,15),1)
             random_question = rand_arr[0]
         
+        ##questions of level_1
         if random_question == 0:
             film_question.topMoviesYearOne()
         elif random_question == 1:
@@ -39,6 +41,7 @@ def questions_page():
         elif random_question == 2:
             film_question.topMoviesActorOne()
 
+        ##questions of level_2
         elif random_question == 3:
             film_question.topMoviesYearTwo()
         elif random_question == 4:
@@ -50,11 +53,13 @@ def questions_page():
         elif random_question == 7:
             film_question.topMoviesCastTwo() 
 
+        ##questions of both of level_2 and level_3
         elif random_question == 8:
             film_question.topMoviesActorTwoThree()
         elif random_question == 9:
             film_question.topMoviesDirectorsTwoThree()
 
+        ##questions of level_3
         elif random_question == 10:
             film_question.topMoviesYearThree()
         elif random_question == 11:
@@ -72,7 +77,9 @@ def questions_page():
         score_data.update_flag()
     else:
         score_data.update_flag()
-    print(score_data.get_random())
+    #print(score_data.get_random())
+
+    ##set selections randomly, there are 24 posibilities
     if score_data.get_random() == 0:
         quiz.add_answer(Answer(film_question.get_answer_one(),True))
         quiz.add_answer(Answer(film_question.get_answer_two(),False))
@@ -201,13 +208,13 @@ def questions_page():
         gamer_answer_keys = request.form.getlist("answer_keys")
         for gamer_answer_key in gamer_answer_keys:
             last_answer = quiz.get_answer(int(gamer_answer_key)) 
-        if last_answer.answerisTrue():
+        if last_answer.answerisTrue():   ##if answer is true, update score and upgrade level per 30 points and also if competitor has less than 3 hearth then give one more hearth 
             score_data.update_score()
             if score_data.get_score()%30 == 0 and score_data.get_score() > 0:
                 score_data.update_level()
                 if score_data.get_hearth()<3:
                     score_data.increase_hearth()
-        else:
+        else:                              ##if answer is false, decrease hearth of competitor and if there is no hearth after this operation, end the game
             score_data.decrease_hearth()  
             if(score_data.get_hearth()==0):                                
                 return render_template("scorepage.html",score_data=score_data)
