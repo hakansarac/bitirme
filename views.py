@@ -17,9 +17,19 @@ def questions_page():
     score_data = current_app.config["score_data"]
 
     film_question = Question()
-    quiz = Quiz()
-    question = quiz.get_question()
+    #quiz = Quiz()
+    question = score_data.get_question() 
     if score_data.get_flag():
+        ####
+        #print(score_data.get_length_answer())
+        print(score_data.get_length_answer())
+        if score_data.get_length_answer()>0:
+            score_data.delete_all_answers()
+            """for i in range(score_data.get_length_answer()+1):
+                print("i-",i)
+                score_data.delete_answer(i)"""
+        ####
+        print(score_data.get_length_answer())
 
         random_question = -1
         ##select question randomly according to level
@@ -32,11 +42,11 @@ def questions_page():
         else:
             rand_arr = random.sample(range(8,15),1)
             random_question = rand_arr[0]
-        
+        random_question = 0
         ##questions of level_1
         if random_question == 0:
             film_question.topMoviesYearOne()
-        elif random_question == 1:
+        """ elif random_question == 1:
             film_question.topMoviesDirectorsOne()
         elif random_question == 2:
             film_question.topMoviesActorOne()
@@ -69,145 +79,60 @@ def questions_page():
         elif random_question == 13:
             film_question.topMoviesActorMovieThree()
         elif random_question == 14:
-            film_question.topMoviesCastThree()
+            film_question.topMoviesCastThree() """
 
-        quiz.set_question(film_question.get_question())
-        question = quiz.get_question()
-        score_data.update_random(randrange(24))
+        temp_arr = []  ##temp array to hold answers before setting to selections randomly  
+        temp_arr.append(Answer(film_question.get_answer_true(),True))
+        for i in range(film_question.get_length_false()):
+            temp_arr.append(Answer(film_question.get_answer_false(i),False))
+        
+        rand_arr = random.sample(range(0,film_question.get_length_false()+1),film_question.get_length_false()+1)
+
+        #score_data.set_answer_number(len(temp_arr))
+        for i in range(film_question.get_length_false()+1):        
+            score_data.add_answer(temp_arr[rand_arr[i]])
+        """score_data.add_answer(Answer(film_question.get_answer_true(),True))
+        for i in range(film_question.get_length_false()):
+            score_data.add_answer(Answer(film_question.get_answer_false(i),False))"""
+        #print(len(temp_arr))
+        ##rand_arr yi kaydet bir sekilde
+        #score_data.update_rand_arr(film_question.get_length_false()+1)
+        """for i in range(film_question.get_length_false()+1):        
+            quiz.add_answer(temp_arr[score_data.rand_arr[i]]) ##IndexError: list index out of range"""
+        #rand_arr = random.sample(range(0,film_question.get_length_false()+1),film_question.get_length_false()+1) ##random number array to use for setting elements of temp array randomly
+        #print(len(rand_arr))
+        #print(film_question.get_length_false())
+        
+
+        score_data.set_question(film_question.get_question())
+        question = score_data.get_question()
+
+        #score_data.update_random(randrange(24))
         score_data.update_flag()
     else:
+        """temp_arr = []  ##temp array to hold answers before setting to selections randomly  
+        temp_arr.append(Answer("true",True))
+        for i in range(score_data.get_answer_number()-1):
+            temp_arr.append(Answer("false",False))
+        for i in range(film_question.get_length_false()+1):        
+            quiz.add_answer(temp_arr[score_data.rand_arr[i]]) ##IndexError: list index out of range"""
         score_data.update_flag()
     #print(score_data.get_random())
+    
+    #print(len(score_data.rand_arr))
+    
+    
 
-    ##set selections randomly, there are 24 posibilities
-    if score_data.get_random() == 0:
-        quiz.add_answer(Answer(film_question.get_answer_one(),True))
-        quiz.add_answer(Answer(film_question.get_answer_two(),False))
-        quiz.add_answer(Answer(film_question.get_answer_three(),False))
-        quiz.add_answer(Answer(film_question.get_answer_four(),False)) 
-    elif score_data.get_random() == 1:
-        quiz.add_answer(Answer(film_question.get_answer_one(),True))
-        quiz.add_answer(Answer(film_question.get_answer_two(),False))
-        quiz.add_answer(Answer(film_question.get_answer_four(),False))
-        quiz.add_answer(Answer(film_question.get_answer_three(),False))
-    elif score_data.get_random() == 2:
-        quiz.add_answer(Answer(film_question.get_answer_one(),True))
-        quiz.add_answer(Answer(film_question.get_answer_three(),False))
-        quiz.add_answer(Answer(film_question.get_answer_two(),False))
-        quiz.add_answer(Answer(film_question.get_answer_four(),False))
-    elif score_data.get_random() == 3:
-        quiz.add_answer(Answer(film_question.get_answer_one(),True))
-        quiz.add_answer(Answer(film_question.get_answer_three(),False))
-        quiz.add_answer(Answer(film_question.get_answer_four(),False))
-        quiz.add_answer(Answer(film_question.get_answer_two(),False))
-    elif score_data.get_random() == 4:
-        quiz.add_answer(Answer(film_question.get_answer_one(),True))
-        quiz.add_answer(Answer(film_question.get_answer_four(),False))
-        quiz.add_answer(Answer(film_question.get_answer_three(),False))
-        quiz.add_answer(Answer(film_question.get_answer_two(),False))
-    elif score_data.get_random() == 5:
-        quiz.add_answer(Answer(film_question.get_answer_one(),True))
-        quiz.add_answer(Answer(film_question.get_answer_four(),False))
-        quiz.add_answer(Answer(film_question.get_answer_two(),False))
-        quiz.add_answer(Answer(film_question.get_answer_three(),False))
-    elif score_data.get_random() == 6:
-        quiz.add_answer(Answer(film_question.get_answer_two(),False))
-        quiz.add_answer(Answer(film_question.get_answer_one(),True))
-        quiz.add_answer(Answer(film_question.get_answer_three(),False))
-        quiz.add_answer(Answer(film_question.get_answer_four(),False))
-    elif score_data.get_random() == 7:
-        quiz.add_answer(Answer(film_question.get_answer_two(),False))
-        quiz.add_answer(Answer(film_question.get_answer_one(),True))
-        quiz.add_answer(Answer(film_question.get_answer_four(),False))
-        quiz.add_answer(Answer(film_question.get_answer_three(),False))
-    elif score_data.get_random() == 8:
-        quiz.add_answer(Answer(film_question.get_answer_two(),False))
-        quiz.add_answer(Answer(film_question.get_answer_three(),False))
-        quiz.add_answer(Answer(film_question.get_answer_four(),False))
-        quiz.add_answer(Answer(film_question.get_answer_one(),True))
-    elif score_data.get_random() == 9:
-        quiz.add_answer(Answer(film_question.get_answer_two(),False))
-        quiz.add_answer(Answer(film_question.get_answer_three(),False))
-        quiz.add_answer(Answer(film_question.get_answer_one(),True))
-        quiz.add_answer(Answer(film_question.get_answer_four(),False))
-    elif score_data.get_random() == 10:
-        quiz.add_answer(Answer(film_question.get_answer_two(),False))
-        quiz.add_answer(Answer(film_question.get_answer_four(),False))
-        quiz.add_answer(Answer(film_question.get_answer_one(),True))
-        quiz.add_answer(Answer(film_question.get_answer_three(),False))
-    elif score_data.get_random() == 11:
-        quiz.add_answer(Answer(film_question.get_answer_two(),False))
-        quiz.add_answer(Answer(film_question.get_answer_four(),False))
-        quiz.add_answer(Answer(film_question.get_answer_three(),False))
-        quiz.add_answer(Answer(film_question.get_answer_one(),True))
-    elif score_data.get_random() == 12:
-        quiz.add_answer(Answer(film_question.get_answer_three(),False))
-        quiz.add_answer(Answer(film_question.get_answer_one(),True))
-        quiz.add_answer(Answer(film_question.get_answer_four(),False))
-        quiz.add_answer(Answer(film_question.get_answer_two(),False))
-    elif score_data.get_random() == 13:
-        quiz.add_answer(Answer(film_question.get_answer_three(),False))
-        quiz.add_answer(Answer(film_question.get_answer_one(),True))
-        quiz.add_answer(Answer(film_question.get_answer_two(),False))
-        quiz.add_answer(Answer(film_question.get_answer_four(),False))
-    elif score_data.get_random() == 14:
-        quiz.add_answer(Answer(film_question.get_answer_three(),False))
-        quiz.add_answer(Answer(film_question.get_answer_four(),False))
-        quiz.add_answer(Answer(film_question.get_answer_one(),True))
-        quiz.add_answer(Answer(film_question.get_answer_two(),False))
-    elif score_data.get_random() == 15:
-        quiz.add_answer(Answer(film_question.get_answer_three(),False))
-        quiz.add_answer(Answer(film_question.get_answer_four(),False))
-        quiz.add_answer(Answer(film_question.get_answer_two(),False))
-        quiz.add_answer(Answer(film_question.get_answer_one(),True))
-    elif score_data.get_random() == 16:
-        quiz.add_answer(Answer(film_question.get_answer_three(),False))
-        quiz.add_answer(Answer(film_question.get_answer_two(),False))
-        quiz.add_answer(Answer(film_question.get_answer_four(),False))
-        quiz.add_answer(Answer(film_question.get_answer_one(),True))
-    elif score_data.get_random() == 17:
-        quiz.add_answer(Answer(film_question.get_answer_three(),False))
-        quiz.add_answer(Answer(film_question.get_answer_two(),False))
-        quiz.add_answer(Answer(film_question.get_answer_one(),True))
-        quiz.add_answer(Answer(film_question.get_answer_four(),False))
-    elif score_data.get_random() == 18:
-        quiz.add_answer(Answer(film_question.get_answer_four(),False))
-        quiz.add_answer(Answer(film_question.get_answer_one(),True))
-        quiz.add_answer(Answer(film_question.get_answer_three(),False))
-        quiz.add_answer(Answer(film_question.get_answer_two(),False))
-    elif score_data.get_random() == 19:
-        quiz.add_answer(Answer(film_question.get_answer_four(),False))
-        quiz.add_answer(Answer(film_question.get_answer_one(),True))
-        quiz.add_answer(Answer(film_question.get_answer_two(),False))
-        quiz.add_answer(Answer(film_question.get_answer_three(),False))
-    elif score_data.get_random() == 20:
-        quiz.add_answer(Answer(film_question.get_answer_four(),False))
-        quiz.add_answer(Answer(film_question.get_answer_two(),False))
-        quiz.add_answer(Answer(film_question.get_answer_three(),False))
-        quiz.add_answer(Answer(film_question.get_answer_one(),True))
-    elif score_data.get_random() == 21:
-        quiz.add_answer(Answer(film_question.get_answer_four(),False))
-        quiz.add_answer(Answer(film_question.get_answer_two(),False))
-        quiz.add_answer(Answer(film_question.get_answer_one(),True))
-        quiz.add_answer(Answer(film_question.get_answer_three(),False))
-    elif score_data.get_random() == 22:
-        quiz.add_answer(Answer(film_question.get_answer_four(),False))
-        quiz.add_answer(Answer(film_question.get_answer_three(),False))
-        quiz.add_answer(Answer(film_question.get_answer_one(),True))
-        quiz.add_answer(Answer(film_question.get_answer_two(),False))
-    elif score_data.get_random() == 23:
-        quiz.add_answer(Answer(film_question.get_answer_four(),False))
-        quiz.add_answer(Answer(film_question.get_answer_three(),False))
-        quiz.add_answer(Answer(film_question.get_answer_two(),False))
-        quiz.add_answer(Answer(film_question.get_answer_one(),True))
+    
 
-    answers = quiz.get_answers() 
+    answers = score_data.get_answers()
     if request.method=="GET":           
         return render_template("questions.html",answers=answers,question=question,score_data=score_data)
     else:
         gamer_answer_keys = request.form.getlist("answer_keys")
         for gamer_answer_key in gamer_answer_keys:
-            last_answer = quiz.get_answer(int(gamer_answer_key)) 
+            last_answer = score_data.get_answer(int(gamer_answer_key)) 
+            print(type(last_answer))
         if last_answer.answerisTrue():   ##if answer is true, update score and upgrade level per 30 points and also if competitor has less than 3 hearth then give one more hearth 
             score_data.update_score()
             if score_data.get_score()%30 == 0 and score_data.get_score() > 0:
@@ -217,7 +142,7 @@ def questions_page():
         else:                              ##if answer is false, decrease hearth of competitor and if there is no hearth after this operation, end the game
             score_data.decrease_hearth()  
             if(score_data.get_hearth()==0):                                
-                return render_template("scorepage.html",score_data=score_data)
+                return render_template("scorepage.html",score_data=score_data)        
         return redirect(url_for("questions_page"))
 
 def score_page():
