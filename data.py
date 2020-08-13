@@ -1,3 +1,6 @@
+from answer import Answer
+from random import randrange
+import random
 class Data:
     def __init__(self):
         self.score = 0
@@ -5,6 +8,11 @@ class Data:
         self.hearth = 3
         self.flag = True
         self.random = 0
+        self.answers = {}
+        self.rand_arr = {}
+        self.question = ""
+        self._last_answer_key = 0
+        self.answer_number = 0
 
     def reconstitute(self):
         self.score = 0
@@ -46,3 +54,52 @@ class Data:
     
     def update_random(self,rand):
         self.random = rand
+
+
+    
+    def add_answer(self, answer):        
+        self.answers[self._last_answer_key] = answer
+        self._last_answer_key += 1
+        return self._last_answer_key
+
+    def delete_answer(self, answer_key):
+        if answer_key in self.answers:
+            del self.answers[answer_key]
+
+    def get_answer(self, answer_key):
+        answer = self.answers.get(answer_key)
+        if answer is None:
+            return None
+        answer_ = Answer(answer.selection,answer.is_true)
+        return answer_
+    
+    def set_question(self, question):
+        self.question = question
+
+    def get_question(self):
+        return self.question
+
+    def get_answers(self):
+        answers = []
+        for answer_key, answer in self.answers.items():
+            answer_ = Answer(answer.selection,answer.is_true)
+            answers.append((answer_key, answer_))
+        return answers
+
+    def get_length_answer(self):
+        return len(self.answers)
+
+    def update_rand_arr(self,number):
+        self.rand_arr = random.sample(range(0,number),number)
+
+    def set_answer_number(self,number):
+        self.answer_number = number
+
+    def get_answer_number(self):
+        return self.answer_number
+
+    def delete_all_answers(self):
+        self.answers = {}
+        
+
+   

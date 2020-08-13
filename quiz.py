@@ -34,3 +34,6 @@ class Quiz:
             answer_ = Answer(answer.selection,answer.is_true)
             answers.append((answer_key, answer_))
         return answers
+
+    def get_length_answer(self):
+        return len(self.answers)
