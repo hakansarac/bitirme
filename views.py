@@ -7,6 +7,8 @@ from question import Question
 from filmdata import TopMovies
 from random import randrange
 import random
+import level_one_questions
+
 
 def home_page():
     score_data = current_app.config["score_data"]
@@ -74,6 +76,8 @@ def questions_page():
         elif random_question == 14:
             film_question.topMoviesCastThree()
 
+        
+
         temp_arr = []  ##temp array to hold answers before setting to selections randomly  
         temp_arr.append(Answer(film_question.get_answer_true(),True))
         for i in range(film_question.get_length_false()):
@@ -91,7 +95,7 @@ def questions_page():
         score_data.set_question(film_question.get_question())
         question = score_data.get_question()
 
-        
+        score_data.update_question_number()
         score_data.update_flag()
     else:
         score_data.update_flag()

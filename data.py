@@ -13,11 +13,13 @@ class Data:
         self.question = ""
         self._last_answer_key = 0
         self.answer_number = 0
+        self.question_number = 0
 
     def reconstitute(self):
         self.score = 0
         self.level = 1
         self.hearth = 3
+        self.question_number = 0
 
     def update_score(self):
         self.score = self.score + 10
@@ -25,6 +27,9 @@ class Data:
     def update_level(self):
         self.level = self.level + 1
     
+    def update_question_number(self):
+        self.question_number = self.question_number + 1
+
     def increase_hearth(self):
         self.hearth = self.hearth + 1
         

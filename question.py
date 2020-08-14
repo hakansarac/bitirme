@@ -2,6 +2,7 @@ from quiz import Quiz
 from answer import Answer
 from imdb import IMDb
 from random import randrange
+import level_one_questions
 import random
 
 class Question:
@@ -27,6 +28,9 @@ class Question:
     
     def get_answer_false(self, answer_key):
         return self.answers_false.get(answer_key)
+
+    ##def select_question(self):
+        ##level_one_questions.topMoviesYearOne()
 
 ###topMoviesYear
 ###level_1 question (easy) 

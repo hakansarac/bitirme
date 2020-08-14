@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block title %}Question - dynamic{% endblock %}
 {% block content %}
-    <h1 class="title">Question</h1>
+    <h1 class="title">Question {{ score_data.question_number }}</h1>
     <p>{{ question }}
     <br />
     </p>
