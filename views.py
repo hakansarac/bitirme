@@ -20,16 +20,9 @@ def questions_page():
     #quiz = Quiz()
     question = score_data.get_question() 
     if score_data.get_flag():
-        ####
-        #print(score_data.get_length_answer())
-        print(score_data.get_length_answer())
+
         if score_data.get_length_answer()>0:
             score_data.delete_all_answers()
-            """for i in range(score_data.get_length_answer()+1):
-                print("i-",i)
-                score_data.delete_answer(i)"""
-        ####
-        print(score_data.get_length_answer())
 
         random_question = -1
         ##select question randomly according to level
@@ -42,11 +35,11 @@ def questions_page():
         else:
             rand_arr = random.sample(range(8,15),1)
             random_question = rand_arr[0]
-        random_question = 0
+
         ##questions of level_1
         if random_question == 0:
             film_question.topMoviesYearOne()
-        """ elif random_question == 1:
+        elif random_question == 1:
             film_question.topMoviesDirectorsOne()
         elif random_question == 2:
             film_question.topMoviesActorOne()
@@ -79,7 +72,7 @@ def questions_page():
         elif random_question == 13:
             film_question.topMoviesActorMovieThree()
         elif random_question == 14:
-            film_question.topMoviesCastThree() """
+            film_question.topMoviesCastThree()
 
         temp_arr = []  ##temp array to hold answers before setting to selections randomly  
         temp_arr.append(Answer(film_question.get_answer_true(),True))
@@ -88,38 +81,20 @@ def questions_page():
         
         rand_arr = random.sample(range(0,film_question.get_length_false()+1),film_question.get_length_false()+1)
 
-        #score_data.set_answer_number(len(temp_arr))
+        
         for i in range(film_question.get_length_false()+1):        
             score_data.add_answer(temp_arr[rand_arr[i]])
-        """score_data.add_answer(Answer(film_question.get_answer_true(),True))
-        for i in range(film_question.get_length_false()):
-            score_data.add_answer(Answer(film_question.get_answer_false(i),False))"""
-        #print(len(temp_arr))
-        ##rand_arr yi kaydet bir sekilde
-        #score_data.update_rand_arr(film_question.get_length_false()+1)
-        """for i in range(film_question.get_length_false()+1):        
-            quiz.add_answer(temp_arr[score_data.rand_arr[i]]) ##IndexError: list index out of range"""
-        #rand_arr = random.sample(range(0,film_question.get_length_false()+1),film_question.get_length_false()+1) ##random number array to use for setting elements of temp array randomly
-        #print(len(rand_arr))
-        #print(film_question.get_length_false())
+        
+        
         
 
         score_data.set_question(film_question.get_question())
         question = score_data.get_question()
 
-        #score_data.update_random(randrange(24))
+        
         score_data.update_flag()
     else:
-        """temp_arr = []  ##temp array to hold answers before setting to selections randomly  
-        temp_arr.append(Answer("true",True))
-        for i in range(score_data.get_answer_number()-1):
-            temp_arr.append(Answer("false",False))
-        for i in range(film_question.get_length_false()+1):        
-            quiz.add_answer(temp_arr[score_data.rand_arr[i]]) ##IndexError: list index out of range"""
         score_data.update_flag()
-    #print(score_data.get_random())
-    
-    #print(len(score_data.rand_arr))
     
     
 

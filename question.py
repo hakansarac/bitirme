@@ -7,11 +7,26 @@ import random
 class Question:
     def __init__(self):
         self.ques = ""
-        self.answerOne = ""
-        self.answerTwo = ""
-        self.answerThree = ""
-        self.answerFour = ""
+        self.answer_true = ""
+        self.answers_false = {}
+        self._last_false_key = 0
 
+    def add_answer_false(self, false_answer):        
+        self.answers_false[self._last_false_key] = false_answer
+        self._last_false_key += 1
+        return self._last_false_key
+
+    def get_length_false(self):
+        return len(self.answers_false)
+
+    def get_question(self):
+        return self.ques
+    
+    def get_answer_true(self):
+        return self.answer_true
+    
+    def get_answer_false(self, answer_key):
+        return self.answers_false.get(answer_key)
 
 ###topMoviesYear
 ###level_1 question (easy) 
@@ -22,34 +37,42 @@ class Question:
         movieID = randrange(0,250)
         chance = 0
         self.ques = '{0} filmi hangi sene vizyona girmiştir?'.format(top[movieID]['title'])
-        self.answerOne = top[movieID]['year']
+        self.answer_true = top[movieID]['year']
 
-        if self.answerOne>=2012 and self.answerOne<=2014:
+        if self.answer_true>=2012 and self.answer_true<=2014:
             chance = randrange(3)        
-        elif self.answerOne>=2015 and self.answerOne<=2017:
+        elif self.answer_true and self.answer_true<=2017:
             chance = randrange(2)
-        elif self.answerOne>=2018:
+        elif self.answer_true>=2018:
             chance = randrange(1)
         else:
             chance = randrange(4)
 
         
         if chance == 0:
-            self.answerTwo = top[movieID]['year']-3
-            self.answerThree = top[movieID]['year']-6
-            self.answerFour = top[movieID]['year']-9
+            self.add_answer_false(top[movieID]['year']-3)
+            self.add_answer_false(top[movieID]['year']-6)
+            self.add_answer_false(top[movieID]['year']-9)
+
+            
         elif chance == 1:
-            self.answerTwo = top[movieID]['year']+3
-            self.answerThree = top[movieID]['year']-6
-            self.answerFour = top[movieID]['year']-3
+            self.add_answer_false(top[movieID]['year']+3)
+            self.add_answer_false(top[movieID]['year']-6)
+            self.add_answer_false(top[movieID]['year']-3)
+
+            
         elif chance == 2:
-            self.answerTwo = top[movieID]['year']+3
-            self.answerThree = top[movieID]['year']+6
-            self.answerFour = top[movieID]['year']-3
+            self.add_answer_false(top[movieID]['year']+3)
+            self.add_answer_false(top[movieID]['year']+6)
+            self.add_answer_false(top[movieID]['year']-3)
+
+            
         elif chance == 3:    
-            self.answerTwo = top[movieID]['year']+3
-            self.answerThree = top[movieID]['year']+6
-            self.answerFour = top[movieID]['year']+9
+            self.add_answer_false(top[movieID]['year']+3)
+            self.add_answer_false(top[movieID]['year']+6)
+            self.add_answer_false(top[movieID]['year']+9)
+
+           
 
 ###level_2 question (medium) 
 ###there are 2 years between selections
@@ -59,34 +82,34 @@ class Question:
         movieID = randrange(0,250)
         chance = 0
         self.ques = '{0} filmi hangi sene vizyona girmiştir?'.format(top[movieID]['title'])
-        self.answerOne = top[movieID]['year']
+        self.answer_true = top[movieID]['year']
 
-        if self.answerOne>=2015 and self.answerOne<=2016:
+        if self.answer_true>=2015 and self.answer_true<=2016:
             chance = randrange(3)        
-        elif self.answerOne>=2017 and self.answerOne<=2018:
+        elif self.answer_true>=2017 and self.answer_true<=2018:
             chance = randrange(2)
-        elif self.answerOne>=2019:
+        elif self.answer_true>=2019:
             chance = randrange(1)
         else:
             chance = randrange(4)
 
         
         if chance == 0:
-            self.answerTwo = top[movieID]['year']-6
-            self.answerThree = top[movieID]['year']-4
-            self.answerFour = top[movieID]['year']-2
+            self.add_answer_false(top[movieID]['year']-6)
+            self.add_answer_false(top[movieID]['year']-4)  
+            self.add_answer_false(top[movieID]['year']-2)
         elif chance == 1:
-            self.answerTwo = top[movieID]['year']+2
-            self.answerThree = top[movieID]['year']-4
-            self.answerFour = top[movieID]['year']-2
+            self.add_answer_false(top[movieID]['year']+2)
+            self.add_answer_false(top[movieID]['year']-4)
+            self.add_answer_false(top[movieID]['year']-2)
         elif chance == 2:
-            self.answerTwo = top[movieID]['year']+2
-            self.answerThree = top[movieID]['year']+4
-            self.answerFour = top[movieID]['year']-2
+            self.add_answer_false(top[movieID]['year']+2)
+            self.add_answer_false(top[movieID]['year']+4)
+            self.add_answer_false(top[movieID]['year']-2)
         elif chance == 3:    
-            self.answerTwo = top[movieID]['year']+2
-            self.answerThree = top[movieID]['year']+4
-            self.answerFour = top[movieID]['year']+6
+            self.add_answer_false(top[movieID]['year']+2)
+            self.add_answer_false(top[movieID]['year']+4)
+            self.add_answer_false(top[movieID]['year']+6)
 
 ###level_3 question (hard) 
 ###there is 1 year between selections
@@ -96,34 +119,34 @@ class Question:
         movieID = randrange(0,250)
         chance = 0
         self.ques = '{0} filmi hangi sene vizyona girmiştir?'.format(top[movieID]['title'])
-        self.answerOne = top[movieID]['year']
+        self.answer_true = top[movieID]['year']
 
-        if self.answerOne==2018:
+        if self.answer_true==2018:
             chance = randrange(3)        
-        elif self.answerOne==2019:
+        elif self.answer_true==2019:
             chance = randrange(2)
-        elif self.answerOne==2020:
+        elif self.answer_true==2020:
             chance = randrange(1)
         else:
             chance = randrange(4)
 
         
         if chance == 0:
-            self.answerTwo = top[movieID]['year']-3
-            self.answerThree = top[movieID]['year']-2
-            self.answerFour = top[movieID]['year']-1
+            self.add_answer_false(top[movieID]['year']-3)
+            self.add_answer_false(top[movieID]['year']-2)
+            self.add_answer_false(top[movieID]['year']-1)
         elif chance == 1:
-            self.answerTwo = top[movieID]['year']+1
-            self.answerThree = top[movieID]['year']-2
-            self.answerFour = top[movieID]['year']-1
+            self.add_answer_false(top[movieID]['year']+1)
+            self.add_answer_false(top[movieID]['year']-2)
+            self.add_answer_false(top[movieID]['year']-1)
         elif chance == 2:
-            self.answerTwo = top[movieID]['year']+1
-            self.answerThree = top[movieID]['year']+2
-            self.answerFour = top[movieID]['year']-1
+            self.add_answer_false(top[movieID]['year']+1)
+            self.add_answer_false(top[movieID]['year']+2)
+            self.add_answer_false(top[movieID]['year']-1)
         elif chance == 3:    
-            self.answerTwo = top[movieID]['year']+1
-            self.answerThree = top[movieID]['year']+2
-            self.answerFour = top[movieID]['year']+3
+            self.add_answer_false(top[movieID]['year']+1)
+            self.add_answer_false(top[movieID]['year']+2)
+            self.add_answer_false(top[movieID]['year']+3)
     
 ##topMoviesYear
 
@@ -143,7 +166,7 @@ class Question:
         movie = top[movieID]
         moviesDB.update(movie,info=['main'])
         self.ques = '{1} yapımı olan {0} filminin yönetmeni kimdir?'.format(movie['title'],movie['year'])
-        self.answerOne = movie['directors'][0]['name'] 
+        self.answer_true = movie['directors'][0]['name'] 
         answer_coun = 0
         roleCoun = len(movie['cast'])
         for c in range(roleCoun):
@@ -154,11 +177,11 @@ class Question:
             if control_c == 0:
                 answer_coun+=1
                 if answer_coun==1:
-                    self.answerTwo = movie['cast'][c]['name']
+                    self.add_answer_false(movie['cast'][c]['name'])
                 elif answer_coun==2:
-                    self.answerThree = movie['cast'][c]['name']
+                    self.add_answer_false(movie['cast'][c]['name'])
                 elif answer_coun==3: 
-                    self.answerFour = movie['cast'][c]['name']            
+                    self.add_answer_false(movie['cast'][c]['name'])            
                     break
 
 ###level_2_3 question (medium-hard) 
@@ -170,7 +193,7 @@ class Question:
         movie = top[movieID]
         moviesDB.update(movie,info=['main'])
         self.ques = '{1} yapımı olan {0} filminin yönetmeni kimdir?'.format(movie['title'],movie['year'])
-        self.answerOne = movie['directors'][0]['name'] 
+        self.answer_true = movie['directors'][0]['name'] 
         flag=True
         while flag:
             filmID = randrange(0,250)
@@ -179,8 +202,8 @@ class Question:
                 for gen in top[filmID]['genres']:
                     if gen == genre:                        
                         film = top[filmID]
-                        if film['directors'][0]['name'] != self.answerOne:
-                            self.answerTwo = film['directors'][0]['name']                                               
+                        if film['directors'][0]['name'] != self.answer_true:
+                            self.add_answer_false(film['directors'][0]['name'])                                               
                             flag = False
         flag=True
         while flag:
@@ -190,8 +213,8 @@ class Question:
                 for gen in top[filmID]['genres']:
                     if gen == genre:                        
                         film = top[filmID]
-                        if film['directors'][0]['name'] != self.answerOne and film['directors'][0]['name'] != self.answerTwo:
-                            self.answerThree = film['directors'][0]['name']
+                        if film['directors'][0]['name'] != self.answer_true and film['directors'][0]['name'] != self.answers_false[0]:
+                            self.add_answer_false(film['directors'][0]['name'])
                             flag = False
         flag=True
         while flag:
@@ -201,8 +224,8 @@ class Question:
                 for gen in top[filmID]['genres']:
                     if gen == genre:                        
                         film = top[filmID]
-                        if film['directors'][0]['name'] != self.answerOne and film['directors'][0]['name'] != self.answerTwo and film['directors'][0]['name'] != self.answerThree:
-                            self.answerFour = film['directors'][0]['name']
+                        if film['directors'][0]['name'] != self.answer_true and film['directors'][0]['name'] != self.answers_false[0] and film['directors'][0]['name'] != self.answers_false[1]:
+                            self.add_answer_false(film['directors'][0]['name'])
                             flag = False
 
 ##topMoviesDirectors
@@ -226,17 +249,17 @@ class Question:
         
         self.ques = 'Aşağıdakilerden hangisi {1} yapımı olan {0} filminin oyuncularından değildir?'.format(movie['title'],movie['year'])
         if len(movie['cast'])<5:
-            self.answerTwo = movie['cast'][0]['name']
-            self.answerThree = movie['cast'][1]['name']
-            self.answerFour = movie['cast'][2]['name']
+            self.add_answer_false(movie['cast'][0]['name'])
+            self.add_answer_false(movie['cast'][1]['name'])
+            self.add_answer_false(movie['cast'][2]['name'])
         else:
             rand = random.sample(range(0,5),3)
             index = rand[0]
-            self.answerTwo = movie['cast'][index]['name']
+            self.add_answer_false(movie['cast'][index]['name'])
             index = rand[1]
-            self.answerThree = movie['cast'][index]['name']
+            self.add_answer_false(movie['cast'][index]['name'])
             index = rand[2]
-            self.answerFour = movie['cast'][index]['name']
+            self.add_answer_false(movie['cast'][index]['name'])
         #moviesDB.update(movie['cast'][0])
         roleNum = len(movie['cast'])
         flag = True
@@ -252,7 +275,7 @@ class Question:
                         if new_movie['cast'][c]['name'] == movie['cast'][j]['name']:
                             control_c +=1 
                     if control_c == 0:
-                        self.answerOne = new_movie['cast'][c]['name']
+                        self.answer_true = new_movie['cast'][c]['name']
                         flag = False
                         break
 
@@ -279,17 +302,17 @@ class Question:
         
         self.ques = 'Aşağıdakilerden hangisi {1} yapımı olan {0} filminin oyuncularından değildir?'.format(movie['title'],movie['year'])
         if len(movie['cast'])<5:
-            self.answerTwo = movie['cast'][0]['name']
-            self.answerThree = movie['cast'][1]['name']
-            self.answerFour = movie['cast'][2]['name']
+            self.add_answer_false(movie['cast'][0]['name'])
+            self.add_answer_false(movie['cast'][1]['name'])
+            self.add_answer_false(movie['cast'][2]['name'])
         else:
             rand = random.sample(range(0,5),3)
             index = rand[0]
-            self.answerTwo = movie['cast'][index]['name']
+            self.add_answer_false(movie['cast'][index]['name'])
             index = rand[1]
-            self.answerThree = movie['cast'][index]['name']
+            self.add_answer_false(movie['cast'][index]['name'])
             index = rand[2]
-            self.answerFour = movie['cast'][index]['name']
+            self.add_answer_false(movie['cast'][index]['name'])
         moviesDB.update(movie['cast'][0])
         roleNum = len(movie['cast'])
         rand = random.sample(range(0,movieNum),movieNum)
@@ -315,7 +338,7 @@ class Question:
                         if newMovie['cast'][c]['name'] == movie['cast'][j]['name']:
                             control_c +=1 
                     if control_c == 0:
-                        self.answerOne = newMovie['cast'][c]['name']
+                        self.answer_true = newMovie['cast'][c]['name']
                         flag = False
                         break  
         i=0
@@ -339,7 +362,7 @@ class Question:
                         if newMovie['cast'][c]['name'] == movie['cast'][j]['name']:
                             control_c +=1 
                     if control_c == 0:
-                        self.answerOne = newMovie['cast'][c]['name']
+                        self.answer_true = newMovie['cast'][c]['name']
                         flag = False
                         break  
 ##topMoviesNotCast
@@ -365,7 +388,7 @@ class Question:
         rand = random.sample(range(0,5),1)
         one = rand[0]
         actor = movie['cast'][one]
-        self.answerOne = actor.currentRole
+        self.answer_true = actor.currentRole
         self.ques = 'Aşağıdakilerden hangisi {1} yapımı olan {0} filminde {2} adlı oyuncunun canlandırdığı karakterdir?'.format(movie['title'],movie['year'],movie['cast'][one])
         
         new_movieID = randrange(0,250)
@@ -373,13 +396,13 @@ class Question:
         moviesDB.update(new_movie,info=['main'])
         if new_movie['title'] != new_movie['title']:
             actor = new_movie['cast'][0]
-            self.answerTwo = actor.currentRole
+            self.add_answer_false(actor.currentRole)
             
             actor = new_movie['cast'][1]
-            self.answerThree = actor.currentRole
+            self.add_answer_false(actor.currentRole)
             
             actor = new_movie['cast'][2]
-            self.answerFour = actor.currentRole
+            self.add_answer_false(actor.currentRole)
 
 ###level_3 question (hard) 
 ###true selection is among top five role 
@@ -394,20 +417,20 @@ class Question:
         rand = random.sample(range(0,5),4)
         one = rand[0]
         actor = movie['cast'][one]
-        self.answerOne = actor.currentRole
+        self.answer_true = actor.currentRole
         self.ques = 'Aşağıdakilerden hangisi {1} yapımı olan {0} filminde {2} adlı oyuncunun canlandırdığı karakterdir?'.format(movie['title'],movie['year'],movie['cast'][one])
         
         two = rand[1]
         actor = movie['cast'][two]
-        self.answerTwo = actor.currentRole
+        self.add_answer_false(actor.currentRole)
 
         three = rand[2]
         actor = movie['cast'][three]
-        self.answerThree = actor.currentRole
+        self.add_answer_false(actor.currentRole)
 
         four = rand[3]
         actor = movie['cast'][four]
-        self.answerFour = actor.currentRole
+        self.add_answer_false(actor.currentRole)
 
 ##topMoviesRole
 
@@ -435,7 +458,7 @@ class Question:
         rand = random.sample(range(0,5),4)
         one = rand[0]
         actor = movie['cast'][one]
-        self.answerOne = actor
+        self.answer_true = actor
         role = actor.currentRole
         self.ques = 'Aşağıdakilerden hangisi {1} yapımı olan {0} filminde {2} adlı karakteri canlandıran oyuncudur?'.format(movie['title'],movie['year'],role)
         
@@ -451,11 +474,11 @@ class Question:
                     if new_movie['cast'][c]['name'] != movie['cast'][one]['name']:
                         flag_coun+=1
                         if flag_coun == 1:
-                            self.answerTwo = new_movie['cast'][c]['name']
+                            self.add_answer_false(new_movie['cast'][c]['name'])
                         elif flag_coun == 2:
-                            self.answerThree = new_movie['cast'][c]['name'] 
+                            self.add_answer_false(new_movie['cast'][c]['name']) 
                         elif flag_coun == 3:
-                            self.answerFour = new_movie['cast'][c]['name']
+                            self.add_answer_false(new_movie['cast'][c]['name'])
                             flag=False
                             break                        
 
@@ -472,21 +495,21 @@ class Question:
         rand = random.sample(range(0,5),4)
         one = rand[0]
         actor = movie['cast'][one]
-        self.answerOne = actor
+        self.answer_true = actor
         role = actor.currentRole
         self.ques = 'Aşağıdakilerden hangisi {1} yapımı olan {0} filminde {2} adlı karakteri canlandıran oyuncudur?'.format(movie['title'],movie['year'],role)
         
         two = rand[1]
         actor = movie['cast'][two]
-        self.answerTwo = actor
+        self.add_answer_false(actor)
 
         three = rand[2]
         actor = movie['cast'][three]
-        self.answerThree = actor
+        self.add_answer_false(actor)
 
         four = rand[3]
         actor = movie['cast'][four]
-        self.answerFour = actor
+        self.add_answer_false(actor)
 ##topMoviesActor
 
 
@@ -532,7 +555,7 @@ class Question:
         #moviesDB.update(movie['cast'][index])  
         #num = len(movie['cast'][index]['filmography'][0]['actor'])      #####KeyError: 'actor'   
         rand_index = random.sample(range(0,num),2) #movies of actor1        #############Sample larger than population or is negative
-        self.answerTwo = movie['title']
+        self.add_answer_false(movie['title'])
         movie_index = rand_index[0]
         new_id = 0
         if list(movie['cast'][index_one]['filmography'][0])[0] == "actor":         
@@ -541,7 +564,7 @@ class Question:
             new_id = movie['cast'][index_one]['filmography'][0]['actress'][movie_index].movieID
         #new_id = movie['cast'][index]['filmography'][0]['actor'][movie_index].movieID
         newMovie = moviesDB.get_movie(new_id)
-        self.answerThree = newMovie['title']
+        self.add_answer_false(newMovie['title'])
         movie_index = rand_index[1]
         new_id = 0
         if list(movie['cast'][index_one]['filmography'][0])[0] == "actor":         
@@ -550,7 +573,7 @@ class Question:
             new_id = movie['cast'][index_one]['filmography'][0]['actress'][movie_index].movieID
         #new_id = movie['cast'][index]['filmography'][0]['actor'][movie_index].movieID
         newMovie = moviesDB.get_movie(new_id)
-        self.answerFour = newMovie['title']
+        self.add_answer_false(newMovie['title'])
         #actor_two = movie['cast'][index_two]
         #moviesDB.update(movie['cast'][index_two])
         #movieNum = len(movie['cast'][index_two]['filmography'][0]['actor'])     #####KeyError: 'actor'   
@@ -566,7 +589,7 @@ class Question:
                     if new_movie['cast'][c]['name'] == movie['cast'][index_one]['name']:
                         flag_coun+=1
                 if flag_coun == 0:
-                    self.answerOne = new_movie['title']
+                    self.answer_true = new_movie['title']
                     flag = False
                     break  
 
@@ -620,7 +643,7 @@ class Question:
         #moviesDB.update(movie['cast'][index])  
         #num = len(movie['cast'][index]['filmography'][0]['actor'])      #####KeyError: 'actor'   
         rand_index = random.sample(range(0,num),2) #movies of actor1        #############Sample larger than population or is negative
-        self.answerTwo = movie['title']
+        self.add_answer_false(movie['title'])
         movie_index = rand_index[0]
         new_id = 0
         if list(movie['cast'][index_one]['filmography'][0])[0] == "actor":         
@@ -629,7 +652,7 @@ class Question:
             new_id = movie['cast'][index_one]['filmography'][0]['actress'][movie_index].movieID
         #new_id = movie['cast'][index]['filmography'][0]['actor'][movie_index].movieID
         newMovie = moviesDB.get_movie(new_id)
-        self.answerThree = newMovie['title']
+        self.add_answer_false(newMovie['title'])
         movie_index = rand_index[1]
         new_id = 0
         if list(movie['cast'][index_one]['filmography'][0])[0] == "actor":         
@@ -638,7 +661,7 @@ class Question:
             new_id = movie['cast'][index_one]['filmography'][0]['actress'][movie_index].movieID
         #new_id = movie['cast'][index]['filmography'][0]['actor'][movie_index].movieID
         newMovie = moviesDB.get_movie(new_id)
-        self.answerFour = newMovie['title']
+        self.add_answer_false(newMovie['title'])
         #actor_two = movie['cast'][index_two]
         #moviesDB.update(movie['cast'][index_two])
         #movieNum = len(movie['cast'][index_two]['filmography'][0]['actor'])     #####KeyError: 'actor'   
@@ -663,7 +686,7 @@ class Question:
                 if newMovie['cast'][c]['name'] == actor['name']:
                     control_c +=1               
             if control_c == 0:
-                self.answerOne = newMovie['title']
+                self.answer_true = newMovie['title']
                 flag = False
                 break
 
@@ -695,7 +718,7 @@ class Question:
 
         self.ques = 'Aşağıdakilerden hangisi {1} yapımı olan {0} filminde oynamıştır?'.format(movie['title'],movie['year'])        
         
-        self.answerOne = movie['cast'][index]['name']
+        self.answer_true = movie['cast'][index]['name']
         
         
         roleNum = len(movie['cast'])
@@ -712,7 +735,7 @@ class Question:
                         if new_movie['cast'][c]['name'] == movie['cast'][j]['name']:
                             control_c +=1 
                     if control_c == 0:
-                        self.answerTwo = new_movie['cast'][c]['name']
+                        self.add_answer_false(new_movie['cast'][c]['name'])
                         flag = False
                         break
         
@@ -729,7 +752,7 @@ class Question:
                         if new_movie['cast'][c]['name'] == movie['cast'][j]['name']:
                             control_c +=1 
                     if control_c == 0:
-                        self.answerThree = new_movie['cast'][c]['name']
+                        self.add_answer_false(new_movie['cast'][c]['name'])
                         flag = False
                         break
         
@@ -746,7 +769,7 @@ class Question:
                         if new_movie['cast'][c]['name'] == movie['cast'][j]['name']:
                             control_c +=1 
                     if control_c == 0:
-                        self.answerFour = new_movie['cast'][c]['name']
+                        self.add_answer_false(new_movie['cast'][c]['name'])
                         flag = False
                         break
 
@@ -788,7 +811,7 @@ class Question:
 
         self.ques = 'Aşağıdakilerden hangisi {1} yapımı olan {0} filminde oynamıştır?'.format(movie['title'],movie['year'])        
         
-        self.answerOne = movie['cast'][index]['name']   
+        self.answer_true = movie['cast'][index]['name']   
 
         
         roleNum = len(movie['cast'])
@@ -816,7 +839,7 @@ class Question:
                         if newMovie['cast'][c]['name'] == movie['cast'][j]['name']:
                             control_c +=1 
                     if control_c == 0:
-                        self.answerTwo = newMovie['cast'][c]['name']
+                        self.add_answer_false(newMovie['cast'][c]['name'])
                         flag = False
                         break
 
@@ -840,7 +863,7 @@ class Question:
                         if newMovie['cast'][c]['name'] == movie['cast'][j]['name']:
                             control_c +=1 
                     if control_c == 0:
-                        self.answerThree = newMovie['cast'][c]['name']
+                        self.add_answer_false(newMovie['cast'][c]['name'])
                         flag = False
                         break
 
@@ -864,26 +887,7 @@ class Question:
                         if newMovie['cast'][c]['name'] == movie['cast'][j]['name']:
                             control_c +=1 
                     if control_c == 0:
-                        self.answerFour = newMovie['cast'][c]['name']
+                        self.add_answer_false(newMovie['cast'][c]['name'])
                         flag = False
                         break
 ##topMoviesCast
-
-
-
-
-
-    def get_question(self):
-        return self.ques
-    
-    def get_answer_one(self):
-        return self.answerOne
-    
-    def get_answer_two(self):
-        return self.answerTwo
-    
-    def get_answer_three(self):
-        return self.answerThree
-    
-    def get_answer_four(self):
-        return self.answerFour
