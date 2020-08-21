@@ -30,6 +30,7 @@ class Data:
         self.level = 1
         self.hearth = 3
         self.question_number = 0
+        self.flag = True
 
     def update_score(self):
         self.score = self.score + 10

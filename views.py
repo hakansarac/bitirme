@@ -76,7 +76,6 @@ def questions_page():
         gamer_answer_keys = request.form.getlist("answer_keys")
         for gamer_answer_key in gamer_answer_keys:
             last_answer = score_data.get_answer(int(gamer_answer_key)) 
-            print(type(last_answer))
         if last_answer.answerisTrue():   ##if answer is true, update score and upgrade level per 30 points and also if competitor has less than 3 hearth then give one more hearth 
             score_data.update_score()
             if score_data.get_score()%30 == 0 and score_data.get_score() > 0:
