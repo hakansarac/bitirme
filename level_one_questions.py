@@ -1,17 +1,16 @@
 from imdb import IMDb
 from random import randrange
 import random
-
-
+from data import Data
+from flask import abort, render_template, current_app, request, redirect, url_for
 
 ###topMoviesYear
 ###level_1 question (easy) 
 ###there are 3 years between selections
-def topMoviesYearOne():
-
+def topMoviesYearOne(top,moviesDB):
     all_question = []
-    moviesDB = IMDb()
-    top = moviesDB.get_top250_movies()
+    #moviesDB = IMDb()
+    #top = moviesDB.get_top250_movies()
     movieID = randrange(0,250)
     chance = 0
     ques = '{0} filmi hangi sene vizyona girmiştir?'.format(top[movieID]['title'])
@@ -60,9 +59,9 @@ def topMoviesYearOne():
 ##topMoviesDirectors
 ###level_1 question (easy) 
 ###false selections are actors/actresses in same movie
-def topMoviesDirectorsOne():
-    moviesDB = IMDb()
-    top = moviesDB.get_top250_movies()
+def topMoviesDirectorsOne(top,moviesDB):
+    #moviesDB = IMDb()
+    #top = moviesDB.get_top250_movies()
     movieID = randrange(0,250)
     movie = top[movieID]
     moviesDB.update(movie,info=['main'])
@@ -97,9 +96,9 @@ def topMoviesDirectorsOne():
 ###level_1 question (easy) 
 ###true selection is among top five actor/actress
 ###false selections are from another movie
-def topMoviesActorOne():
-    moviesDB = IMDb()
-    top = moviesDB.get_top250_movies()
+def topMoviesActorOne(top,moviesDB):
+    #moviesDB = IMDb()
+    #top = moviesDB.get_top250_movies()
     movieID = randrange(0,250)
     movie = top[movieID]
     moviesDB.update(movie,info=['main'])

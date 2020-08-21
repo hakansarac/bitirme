@@ -29,19 +29,19 @@ def questions_page():
         
         ##select question randomly according to level
         if score_data.get_level()==1:
-            film_question.level_one()
+            film_question.level_one(score_data.get_top_imdb(),score_data.get_moviesdb())
         elif score_data.get_level()==2:
             rand_arr = random.sample(range(0,2),1)
             if rand_arr[0] == 0:
-                film_question.level_two()
+                film_question.level_two(score_data.get_top_imdb(),score_data.get_moviesdb())
             else:
-                film_question.level_two_three()
+                film_question.level_two_three(score_data.get_top_imdb(),score_data.get_moviesdb())
         else:
             rand_arr = random.sample(range(0,2),1)
             if rand_arr[0] == 0:
-                film_question.level_three()
+                film_question.level_three(score_data.get_top_imdb(),score_data.get_moviesdb())
             else:
-                film_question.level_two_three()       
+                film_question.level_two_three(score_data.get_top_imdb(),score_data.get_moviesdb())       
 
         temp_arr = []  ##temp array to hold answers before setting to selections randomly  
         temp_arr.append(Answer(film_question.get_answer_true(),True))

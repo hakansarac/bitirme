@@ -7,9 +7,9 @@ import random
 ###level_2_3 question (medium - hard) 
 ###true selection is among top five actor/actress
 ###false selections are from same movie
-def topMoviesActorTwoThree():
-    moviesDB = IMDb()
-    top = moviesDB.get_top250_movies()
+def topMoviesActorTwoThree(top,moviesDB):
+    #moviesDB = IMDb()
+    #top = moviesDB.get_top250_movies()
     movieID = randrange(0,250)
     movie = top[movieID]
     moviesDB.update(movie,info=['main'])
@@ -45,9 +45,9 @@ def topMoviesActorTwoThree():
 
 ###level_2_3 question (medium-hard) 
 ###false selections are directors who directed movies same genres 
-def topMoviesDirectorsTwoThree():
-    moviesDB = IMDb()
-    top = moviesDB.get_top250_movies()
+def topMoviesDirectorsTwoThree(top,moviesDB):
+    #moviesDB = IMDb()
+    #top = moviesDB.get_top250_movies()
     movieID = randrange(0,250)
     movie = top[movieID]
     moviesDB.update(movie,info=['main'])

@@ -1,3 +1,4 @@
+from imdb import IMDb
 from answer import Answer
 from random import randrange
 import random
@@ -14,6 +15,15 @@ class Data:
         self._last_answer_key = 0
         self.answer_number = 0
         self.question_number = 0
+        self.moviesDB = IMDb()
+        self.top = self.moviesDB.get_top250_movies()
+
+
+    def get_top_imdb(self):
+        return self.top
+
+    def get_moviesdb(self):
+        return self.moviesDB
 
     def reconstitute(self):
         self.score = 0

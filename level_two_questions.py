@@ -6,9 +6,9 @@ import random
 ###topMoviesYear
 ###level_2 question (medium) 
 ###there are 2 years between selections
-def topMoviesYearTwo():
-    moviesDB = IMDb()
-    top = moviesDB.get_top250_movies()
+def topMoviesYearTwo(top,moviesDB):
+    #moviesDB = IMDb()
+    #top = moviesDB.get_top250_movies()
     movieID = randrange(0,250)
     chance = 0
     all_question = []
@@ -54,9 +54,9 @@ def topMoviesYearTwo():
 ###false selections are among top five actors/actresses in movie
 ###true selection is first actor/actress from new random movie(harder one in level3)
 ##topMoviesNotCast
-def topMoviesNotCastTwo():
-    moviesDB = IMDb()
-    top = moviesDB.get_top250_movies()
+def topMoviesNotCastTwo(top,moviesDB):
+    #moviesDB = IMDb()
+    #top = moviesDB.get_top250_movies()
     movieID = randrange(0,250)
     movie = top[movieID]
     moviesDB.update(movie,info=['main'])
@@ -106,9 +106,9 @@ def topMoviesNotCastTwo():
 ##topMoviesRole
 ###level_2 question (medium) 
 ###false selections are from another movie
-def topMoviesRoleTwo():
-    moviesDB = IMDb()
-    top = moviesDB.get_top250_movies()
+def topMoviesRoleTwo(top,moviesDB):
+    #moviesDB = IMDb()
+    #top = moviesDB.get_top250_movies()
     movieID = randrange(0,250)
     movie = top[movieID]
     moviesDB.update(movie,info=['main'])
@@ -143,9 +143,9 @@ def topMoviesRoleTwo():
 ##topMoviesActorMovie
 ###level_2 question (medium) 
 ###true selection is chosen randomly
-def topMoviesActorMovieTwo():
-    moviesDB = IMDb()
-    top = moviesDB.get_top250_movies()
+def topMoviesActorMovieTwo(top,moviesDB):
+    #moviesDB = IMDb()
+    #top = moviesDB.get_top250_movies()
     isFind = False
     num = 0
     movie = top[0]
@@ -227,9 +227,9 @@ def topMoviesActorMovieTwo():
 ##level_2 question (medium)
 ##true selection is from top three actor/actress of movie
 ##false selections from random other three movies 
-def topMoviesCastTwo():
-    moviesDB = IMDb()
-    top = moviesDB.get_top250_movies()
+def topMoviesCastTwo(top,moviesDB):
+    #moviesDB = IMDb()
+    #top = moviesDB.get_top250_movies()
     movieID = randrange(0,250)
     movie = top[movieID]
     moviesDB.update(movie,info=['main'])

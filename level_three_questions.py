@@ -5,9 +5,9 @@ import random
 
 ###level_3 question (hard) 
 ###there is 1 year between selections
-def topMoviesYearThree():
-    moviesDB = IMDb()
-    top = moviesDB.get_top250_movies()
+def topMoviesYearThree(top,moviesDB):
+    #moviesDB = IMDb()
+    #top = moviesDB.get_top250_movies()
     movieID = randrange(0,250)
     chance = 0
     all_question = []
@@ -53,9 +53,9 @@ def topMoviesYearThree():
 ###level_3 question (hard) 
 ###false selections are among top five actors/actresses in same movie
 ###true selection is an actor/actress from another movie of leading actor(if there are maximum 5 years between two movies of leading actor choose this year, or search another movie) 
-def topMoviesNotCastThree():
-    moviesDB = IMDb()
-    top = moviesDB.get_top250_movies()
+def topMoviesNotCastThree(top,moviesDB):
+    #moviesDB = IMDb()
+    #top = moviesDB.get_top250_movies()
     isFind = False
     movieNum = 0
     movie = top[0]
@@ -150,9 +150,9 @@ def topMoviesNotCastThree():
 ###level_3 question (hard) 
 ###true selection is among top five role 
 ###false selections are among top five role from same movie 
-def topMoviesRoleThree():
-    moviesDB = IMDb()
-    top = moviesDB.get_top250_movies()
+def topMoviesRoleThree(top,moviesDB):
+    #moviesDB = IMDb()
+    #top = moviesDB.get_top250_movies()
     movieID = randrange(0,250)
     movie = top[movieID]
     moviesDB.update(movie,info=['main'])
@@ -191,9 +191,9 @@ def topMoviesRoleThree():
 
 ###level_3 question (hard) 
 ###true selection is chosen among another movies of other leading actor/actress
-def topMoviesActorMovieThree():
-    moviesDB = IMDb()
-    top = moviesDB.get_top250_movies()
+def topMoviesActorMovieThree(top,moviesDB):
+    #moviesDB = IMDb()
+    #top = moviesDB.get_top250_movies()
     isFind = False
     num = 0
     movieNum = 0
@@ -296,9 +296,9 @@ def topMoviesActorMovieThree():
 ##true selection is from top three actor/actress of movie
 ##false selections are leading actor/actress from other three movies of leading actor/actress of asked movie
 
-def topMoviesCastThree():
-    moviesDB = IMDb()
-    top = moviesDB.get_top250_movies()
+def topMoviesCastThree(top,moviesDB):
+    #moviesDB = IMDb()
+    #top = moviesDB.get_top250_movies()
     isFind = False
     movieNum = 0
     movie = top[0]

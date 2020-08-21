@@ -38,15 +38,15 @@ class Question:
 ###topMoviesYear
 ###level_1 question (easy) 
 ###there are 3 years between selections 
-    def level_one(self):
+    def level_one(self,top,moviesDB):
         rand_arr = random.sample(range(0,3),1)
         random_question = rand_arr[0]
         if random_question == 0:
-            my_arr = level_one_questions.topMoviesYearOne()
+            my_arr = level_one_questions.topMoviesYearOne(top,moviesDB)
         elif random_question == 1:
-            my_arr = level_one_questions.topMoviesDirectorsOne()
+            my_arr = level_one_questions.topMoviesDirectorsOne(top,moviesDB)
         elif random_question == 2:
-            my_arr = level_one_questions.topMoviesActorOne()
+            my_arr = level_one_questions.topMoviesActorOne(top,moviesDB)
         
         self.ques = my_arr[0]
         self.answer_true = my_arr[1]
@@ -56,51 +56,51 @@ class Question:
            
 
 
-    def level_two(self):
+    def level_two(self,top,moviesDB):
         rand_arr = random.sample(range(0,5),1)
         random_question = rand_arr[0]
         if random_question == 0:
-            my_arr = level_two_questions.topMoviesYearTwo()
+            my_arr = level_two_questions.topMoviesYearTwo(top,moviesDB)
         elif random_question == 1:
-            my_arr = level_two_questions.topMoviesNotCastTwo()  
+            my_arr = level_two_questions.topMoviesNotCastTwo(top,moviesDB)  
         elif random_question == 2:
-            my_arr = level_two_questions.topMoviesRoleTwo()  
+            my_arr = level_two_questions.topMoviesRoleTwo(top,moviesDB)  
         elif random_question == 3:
-            my_arr = level_two_questions.topMoviesActorMovieTwo()
+            my_arr = level_two_questions.topMoviesActorMovieTwo(top,moviesDB)
         elif random_question == 4:
-            my_arr = level_two_questions.topMoviesCastTwo() 
+            my_arr = level_two_questions.topMoviesCastTwo(top,moviesDB) 
 
         self.ques = my_arr[0]
         self.answer_true = my_arr[1]
         for i in range(2,len(my_arr)):
             self.add_answer_false(my_arr[i])
 
-    def level_two_three(self): 
+    def level_two_three(self,top,moviesDB): 
         rand_arr = random.sample(range(0,2),1)
         random_question = rand_arr[0]
         if random_question == 0:
-            my_arr = level_two_three_questions.topMoviesActorTwoThree()
+            my_arr = level_two_three_questions.topMoviesActorTwoThree(top,moviesDB)
         elif random_question == 1:
-            my_arr = level_two_three_questions.topMoviesDirectorsTwoThree()
+            my_arr = level_two_three_questions.topMoviesDirectorsTwoThree(top,moviesDB)
         
         self.ques = my_arr[0]
         self.answer_true = my_arr[1]
         for i in range(2,len(my_arr)):
             self.add_answer_false(my_arr[i])
 
-    def level_three(self):
+    def level_three(self,top,moviesDB):
         rand_arr = random.sample(range(0,5),1)
         random_question = rand_arr[0]
         if random_question == 0:
-            film_question.topMoviesYearThree()
+            my_arr = level_three_questions.topMoviesYearThree(top,moviesDB)
         elif random_question == 1:
-            film_question.topMoviesNotCastThree()
+            my_arr = level_three_questions.topMoviesNotCastThree(top,moviesDB)
         elif random_question == 2:
-            film_question.topMoviesRoleThree()        
+            my_arr = level_three_questions.topMoviesRoleThree(top,moviesDB)        
         elif random_question == 3:
-            film_question.topMoviesActorMovieThree()
+            my_arr = level_three_questions.topMoviesActorMovieThree(top,moviesDB)
         elif random_question == 4:
-            film_question.topMoviesCastThree()
+            my_arr = level_three_questions.topMoviesCastThree(top,moviesDB)
 
         self.ques = my_arr[0]
         self.answer_true = my_arr[1]
