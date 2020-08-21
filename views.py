@@ -7,7 +7,7 @@ from question import Question
 from filmdata import TopMovies
 from random import randrange
 import random
-import level_one_questions
+#import level_one_questions
 
 
 def home_page():
@@ -26,57 +26,22 @@ def questions_page():
         if score_data.get_length_answer()>0:
             score_data.delete_all_answers()
 
-        random_question = -1
+        
         ##select question randomly according to level
         if score_data.get_level()==1:
-            rand_arr = random.sample(range(0,3),1)
-            random_question = rand_arr[0]
+            film_question.level_one()
         elif score_data.get_level()==2:
-            rand_arr = random.sample(range(3,10),1)
-            random_question = rand_arr[0]
+            rand_arr = random.sample(range(0,2),1)
+            if rand_arr[0] == 0:
+                film_question.level_two()
+            else:
+                film_question.level_two_three()
         else:
-            rand_arr = random.sample(range(8,15),1)
-            random_question = rand_arr[0]
-
-        ##questions of level_1
-        if random_question == 0:
-            film_question.topMoviesYearOne()
-        elif random_question == 1:
-            film_question.topMoviesDirectorsOne()
-        elif random_question == 2:
-            film_question.topMoviesActorOne()
-
-        ##questions of level_2
-        elif random_question == 3:
-            film_question.topMoviesYearTwo()
-        elif random_question == 4:
-            film_question.topMoviesNotCastTwo()  
-        elif random_question == 5:
-            film_question.topMoviesRoleTwo()  
-        elif random_question == 6:
-            film_question.topMoviesActorMovieTwo()
-        elif random_question == 7:
-            film_question.topMoviesCastTwo() 
-
-        ##questions of both of level_2 and level_3
-        elif random_question == 8:
-            film_question.topMoviesActorTwoThree()
-        elif random_question == 9:
-            film_question.topMoviesDirectorsTwoThree()
-
-        ##questions of level_3
-        elif random_question == 10:
-            film_question.topMoviesYearThree()
-        elif random_question == 11:
-            film_question.topMoviesNotCastThree()
-        elif random_question == 12:
-            film_question.topMoviesRoleThree()        
-        elif random_question == 13:
-            film_question.topMoviesActorMovieThree()
-        elif random_question == 14:
-            film_question.topMoviesCastThree()
-
-        
+            rand_arr = random.sample(range(0,2),1)
+            if rand_arr[0] == 0:
+                film_question.level_three()
+            else:
+                film_question.level_two_three()       
 
         temp_arr = []  ##temp array to hold answers before setting to selections randomly  
         temp_arr.append(Answer(film_question.get_answer_true(),True))
