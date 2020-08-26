@@ -43,7 +43,7 @@ def questions_page():
             else:
                 film_question.level_two_three(score_data.get_top_imdb(),score_data.get_moviesdb())       
 
-        temp_arr = []  ##temp array to hold answers before setting to selections randomly  
+        temp_arr = []  ##temp array to hold answers before setting selections randomly  
         temp_arr.append(Answer(film_question.get_answer_true(),True))
         for i in range(film_question.get_length_false()):
             temp_arr.append(Answer(film_question.get_answer_false(i),False))

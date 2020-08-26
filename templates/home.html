@@ -1,13 +1,42 @@
 {% extends "layout.html" %}
-{% block title %}Home Page{% endblock %}
+{% block title %}Anasayfa{% endblock %}
 {% block content %}
-    <h1>Film Quiz</h1>
+  <body style="text-align: center;  background-color: #2FA0CA;"></body>
+    <h1 style="color: #000000">I am DB!</h1>
+    <h3 style="color: #2C4A55">IMDb listelerinden oluşturulan bilgi yarışması oyununu deneyimlemek ister misin?</h3>
+    <h3 style="color: #2C4A55">Merak etme! Aynı sorularla tekrar tekrar karşılaşmaman için sorular önceden hazırlanmıyor, anlık oluşturuluyor.</h3>
+    <h2 style="color: #000000">Nasıl Oynanır?</h2>
+    <table style="table is-striped is-fullwidth" align="center">
+        <tr>
+            <th style="color: #2C4A55">Oyuna devam edebilmek için toplam 3 canın var.</th>
+        </tr>
+        <tr></tr>
+        <tr>
+            <th style="color: #2C4A55">Her yanlış cevabında 1 canını kaybedersin!</th>
+        </tr>
+        <tr></tr>
+        <tr>
+            <th style="color: #2C4A55">Her doğru cevap için 10 puan kazanırsın.</th>
+        </tr>
+        <tr></tr>
+        <tr>
+            <th style="color: #2C4A55">Her 3 doğru cevap için 1 level atlarsın.</th>
+        </tr>
+        <tr></tr>
+        <tr>
+            <th style="color: #2C4A55">Her level atlamanda 1 can kazanırsın.</th>
+        </tr>
+        <tr></tr>
+        <tr>
+            <th style="color: #2C4A55">En fazla 3 canın olacağını unutma!</th>
+        </tr>
+    </table>
     <body style="text-align: center;">      
         <br />
         <br />
-        Press button to
-        <a href="{{ url_for('questions_page') }}"><strong style="text-align: center;">Play!</p></a>
+        <h2 style="color: #D32121">Hazırsan
+        <a href="{{ url_for('questions_page') }}"><strong style="text-align: center;">Başlayalım!</h2></a>
       
     </body>
-    
+  </body>
 {% endblock %}

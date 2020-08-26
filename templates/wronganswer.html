@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block title %}Skor{% endblock %}
+{% block title %}Soru - {{ score_data.question_number }}{% endblock %}
 {% block content %}
 <body style="text-align: center;  background-color: #2FA0CA;">
     <h1 style="color: #000000">I am DB!</h1>
@@ -9,8 +9,8 @@
         <h2 style="color: #D32121">Skorun: {{score_data.score }}</h2>
         <br />
         <br />
-        <h3 style="color: #2C4A55">Tekrar oynamak için       
-        <a href="{{ url_for('home_page') }}"><strong style="text-align: center;">Tıklayınız!</h3></a>      
+        <h2 style="color: #2C4A55">
+        <a href="{{ url_for('questions_page') }}"><strong style="text-align: center;">Devam et!</h2></a>     
     </body>    
 </body>
 {% endblock %}

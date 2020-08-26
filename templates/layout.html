@@ -2,14 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <title>Film Quiz - {% block title %}{% endblock %}</title>
+    <title>I am DB! - {% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{{url_for('static', filename='quiz.css')}}"/>
   </head>
-  <body style="text-align: center;">
-    {% block content %}{% endblock %}
-    <footer>
-      <br />
-      <small>&copy; 2019-2020, Hakan Sarac</small>
-    </footer>
-  </body>
+
+  {% block content %}{% endblock %}
+  <footer>
+    <br />
+    <small>&copy; 2019-2020, Hakan Sarac</small>
+  </footer>
 </html>

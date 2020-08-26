@@ -1,7 +1,8 @@
 {% extends "layout.html" %}
-{% block title %}Question - dynamic{% endblock %}
+{% block title %}Soru - {{ score_data.question_number }}{% endblock %}
 {% block content %}
-    <h1 class="title">Question {{ score_data.question_number }}</h1>
+  <body style="text-align: center; background-color: #2FA0CA;">  
+    <h1 class="title" style="color: #000000;">Soru - {{ score_data.question_number }}</h1>
     <p>{{ question }}
     <br />
     </p>
@@ -21,22 +22,23 @@
       <br />
       <div class="field is-grouped">
         <div class="control">
-          <button class="button is-primary is-small">Select</button>
+          <button class="button is-primary is-small">Seç</button>
         </div>
       </div> 
     </form> 
     <br />
-    <p>Score: {{score_data.score }}</p>
+    <p>Skor: {{score_data.score }}</p>
     <p>Level: {{score_data.level }}</p>
     <br />
     {% if score_data.hearth==3 %}
-    <p>&#10084;&#65039; &#10084;&#65039; &#10084;&#65039;</p>
+    <p>Kalan Can: &#10084;&#65039; &#10084;&#65039; &#10084;&#65039;</p>
     {% endif %}
     {% if score_data.hearth==2 %}
-    <p>&#10084;&#65039; &#10084;&#65039;</p>
+    <p>Kalan Can: &#10084;&#65039; &#10084;&#65039;</p>
     {% endif %}
     {% if score_data.hearth==1 %}
-    <p>&#10084;&#65039;</p>
+    <p>Kalan Can: &#10084;&#65039;</p>
     {% endif %}
-    <a href="{{ url_for('score_page') }}"><strong>Quit!</strong></a>    
+    <a href="{{ url_for('score_page') }}"><strong>Çıkış!</strong></a>   
+  </body> 
 {% endblock %}
