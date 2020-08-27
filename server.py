@@ -12,6 +12,11 @@ def create_app():
     app.add_url_rule("/", view_func=views.home_page)
     app.add_url_rule("/questions", view_func=views.questions_page, methods=["GET", "POST"])
     app.add_url_rule("/score", view_func=views.score_page)
+    app.add_url_rule("/levelup", view_func=views.level_up_page)
+    app.add_url_rule("/beforelevelup", view_func=views.before_level_up_page)
+    app.add_url_rule("/wrong", view_func=views.wrong_answer_page)
+    app.add_url_rule("/lastheart", view_func=views.last_heart_page)
+    app.add_url_rule("/true", view_func=views.true_answer_page)
     score_data = Data()
     
     app.config["score_data"] = score_data

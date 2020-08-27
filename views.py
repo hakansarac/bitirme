@@ -82,8 +82,15 @@ def questions_page():
                 score_data.update_level()
                 if score_data.get_hearth()<3:
                     score_data.increase_hearth()
+                return render_template("levelup.html",score_data=score_data)
+            if score_data.get_score()%30 == 20 and score_data.get_score() > 0:
+                return render_template("beforelevup.html",score_data=score_data)
+            else:
+                return render_template("trueanswer.html",score_data=score_data)
         else:                              ##if answer is false, decrease hearth of competitor and if there is no hearth after this operation, end the game
             score_data.decrease_hearth()  
+            if(score_data.get_hearth()>0):
+                return render_template("wronganswer.html",score_data=score_data)
             if(score_data.get_hearth()==0):                                
                 return render_template("scorepage.html",score_data=score_data)        
         return redirect(url_for("questions_page"))
@@ -91,3 +98,23 @@ def questions_page():
 def score_page():
     score_data = current_app.config["score_data"]
     return render_template("scorepage.html",score_data=score_data)
+
+def level_up_page():
+    score_data = current_app.config["score_data"]
+    return render_template("levelup.html",score_data=score_data)
+
+def before_level_up_page():
+    score_data = current_app.config["score_data"]
+    return render_template("beforelevup.html",score_data=score_data)
+
+def wrong_answer_page():
+    score_data = current_app.config["score_data"]
+    return render_template("wronganswer.html",score_data=score_data)
+
+def last_heart_page():
+    score_data = current_app.config["score_data"]
+    return render_template("lastheart.html",score_data=score_data)
+
+def true_answer_page():
+    score_data = current_app.config["score_data"]
+    return render_template("trueanswer.html",score_data=score_data)
