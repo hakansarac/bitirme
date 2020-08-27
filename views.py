@@ -90,7 +90,7 @@ def questions_page():
         else:                              ##if answer is false, decrease hearth of competitor and if there is no hearth after this operation, end the game
             score_data.decrease_hearth()  
             if(score_data.get_hearth()>0):
-                return render_template("wronganswer.html",score_data=score_data)
+                return render_template("wronganswer.html",answers=answers,score_data=score_data)
             if(score_data.get_hearth()==0):                                
                 return render_template("scorepage.html",score_data=score_data)        
         return redirect(url_for("questions_page"))
@@ -109,11 +109,7 @@ def before_level_up_page():
 
 def wrong_answer_page():
     score_data = current_app.config["score_data"]
-    return render_template("wronganswer.html",score_data=score_data)
-
-def last_heart_page():
-    score_data = current_app.config["score_data"]
-    return render_template("lastheart.html",score_data=score_data)
+    return render_template("wronganswer.html",answers=answers,score_data=score_data)
 
 def true_answer_page():
     score_data = current_app.config["score_data"]
