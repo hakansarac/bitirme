@@ -27,7 +27,8 @@ def questions_page():
             score_data.delete_all_answers()
 
         
-        ##select question randomly according to level
+        
+        #select question randomly according to level
         if score_data.get_level()==1:
             film_question.level_one(score_data.get_top_imdb(),score_data.get_moviesdb())
         elif score_data.get_level()==2:

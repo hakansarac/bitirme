@@ -123,7 +123,7 @@ def topMoviesRoleTwo(top,moviesDB):
     new_movieID = randrange(0,250)
     new_movie = top[new_movieID]
     moviesDB.update(new_movie,info=['main'])
-    if new_movie['title'] != new_movie['title']:
+    if new_movie['title'] != movie['title']:
         actor = new_movie['cast'][0]
         false_arr.append(actor.currentRole)
         

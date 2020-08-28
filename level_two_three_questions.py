@@ -66,6 +66,9 @@ def topMoviesDirectorsTwoThree(top,moviesDB):
                     if film['directors'][0]['name'] != answer_true:
                         false_arr.append(film['directors'][0]['name'])                                               
                         flag = False
+                        break
+                if flag == False:
+                    break 
     flag=True
     while flag:
         filmID = randrange(0,250)
@@ -77,6 +80,9 @@ def topMoviesDirectorsTwoThree(top,moviesDB):
                     if film['directors'][0]['name'] != answer_true and film['directors'][0]['name'] != false_arr[0]:
                         false_arr.append(film['directors'][0]['name'])
                         flag = False
+                        break
+                if flag == False:
+                    break
     flag=True
     while flag:
         filmID = randrange(0,250)
@@ -88,6 +94,9 @@ def topMoviesDirectorsTwoThree(top,moviesDB):
                     if film['directors'][0]['name'] != answer_true and film['directors'][0]['name'] != false_arr[0] and film['directors'][0]['name'] != false_arr[1]:
                         false_arr.append(film['directors'][0]['name'])
                         flag = False
+                        break
+                if flag == False:
+                    break
 
     all_question.append(ques)
     all_question.append(answer_true)

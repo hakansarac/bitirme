@@ -22,7 +22,7 @@
       <br />
       <div class="field is-grouped">
         <div class="control">
-          <button class="button is-primary is-small">Seç</button>
+          <button class="button is-primary is-small" style="font-size: 20px; background-color: #1a82a8;">Seç</button>
         </div>
       </div> 
     </form> 
@@ -39,6 +39,6 @@
     {% if score_data.hearth==1 %}
     <p>Kalan Can: &#10084;&#65039;</p>
     {% endif %}
-    <a href="{{ url_for('score_page') }}"><strong>Çıkış!</strong></a>   
+    <button style="font-size: 20px; background-color: #1a82a8;"><a href="{{ url_for('score_page') }}">Çıkış!</a></button>   
   </body> 
 {% endblock %}
