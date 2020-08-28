@@ -68,16 +68,18 @@ def topMoviesDirectorsOne(top,moviesDB):
     all_question = []
     false_arr = []
     ques = '{1} yapımı olan {0} filminin yönetmeni kimdir?'.format(movie['title'],movie['year'])
-    answer_true = movie['directors'][0]['name'] 
+    answer_true = movie['directors'][0]['name']
+    directorCoun = len(movie['directors']) 
     answer_coun = 0
     roleCoun = len(movie['cast'])
     for c in range(roleCoun):
-        control_c = 0
-        for director in movie['directors']:
-            if director == movie['cast'][c]['name']: 
-                control_c +=1
-        if control_c == 0:
-            answer_coun+=1
+        flag_coun = 0
+        for d in range(directorCoun):
+            if movie['directors'][d]['name'] == movie['cast'][c]['name']: 
+                flag_coun = flag_coun + 1
+
+        if flag_coun == 0:
+            answer_coun+=1            
             if answer_coun==1:
                 false_arr.append(movie['cast'][c]['name'])
             elif answer_coun==2:
@@ -85,6 +87,11 @@ def topMoviesDirectorsOne(top,moviesDB):
             elif answer_coun==3: 
                 false_arr.append(movie['cast'][c]['name'])            
                 break
+            
+    
+                
+                
+                
     all_question.append(ques)
     all_question.append(answer_true)
     for i in range(len(false_arr)):
