@@ -18,10 +18,19 @@ def home_page():
 def questions_page():
     score_data = current_app.config["score_data"]
 
-    film_question = Question()
-    #quiz = Quiz()
-    question = score_data.get_question() 
-    if score_data.get_flag():
+    
+    
+    
+    answers = []
+
+    
+
+    
+    if request.method=="GET":   
+        film_question = Question()
+        #quiz = Quiz()
+        question = score_data.get_question() 
+    #if score_data.get_flag():
 
         if score_data.get_length_answer()>0:
             score_data.delete_all_answers()
@@ -62,16 +71,8 @@ def questions_page():
         question = score_data.get_question()
 
         score_data.update_question_number()
-        score_data.update_flag()
-    else:
-        score_data.update_flag()
-    
-    
-
-    
-
-    answers = score_data.get_answers()
-    if request.method=="GET":           
+        score_data.update_flag()    
+        answers = score_data.get_answers()    
         return render_template("questions.html",answers=answers,question=question,score_data=score_data)
     else:
         gamer_answer_keys = request.form.getlist("answer_keys")
