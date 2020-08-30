@@ -54,7 +54,6 @@ pythonnet==2.4.0
 pytoml==0.1.21
 pytz==2019.2
 pywebview==3.1
-pywin32==227
 pywinpty==0.5.7
 pyzmq==19.0.1
 requests==2.22.0
