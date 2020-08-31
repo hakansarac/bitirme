@@ -15,8 +15,8 @@ decorator==4.4.2
 defusedxml==0.6.0
 docutils==0.16rc1
 entrypoints==0.3
-Flask==1.1.1
-gunicorn==19.9.0
+Flask>=1.0
+gunicorn>=19.9
 idna==2.8
 imagesize==1.1.0
 IMDbPY==6.8
@@ -45,7 +45,7 @@ pep517==0.6.0
 pickleshare==0.7.5
 prometheus-client==0.8.0
 prompt-toolkit==3.0.5
-psycopg2-binary==2.8.3
+psycopg2-binary>=2.7
 pygments==2.5.2
 pyparsing==2.4.6
 pyrsistent==0.16.0
@@ -79,3 +79,8 @@ webencodings==0.5.1
 Werkzeug==0.16.0
 zipp==0.6.0
 zope.interface==4.6.0
+Flask-Ext>=0.1
+Flask-Login>=0.4.1
+Flask-WTF>=0.14.2
+WTForms>=2.2.1
+passlib>=1.7.2
